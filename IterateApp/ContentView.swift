@@ -14,11 +14,15 @@ struct ContentView: View {
     
     let notes: [Note]
     
+    let columns = [
+        GridItem(.adaptive(minimum: 150))
+    ]
+    
     var body: some View {
         
         NavigationStack {
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: 35) {
+                LazyVGrid(columns: columns) {
                     
                     ForEach(notes) { note in
 //                        Text(note.title)
@@ -26,12 +30,34 @@ struct ContentView: View {
                         NavigationLink {
                             NoteView(note: note)
                         } label: {
-                            Text(note.title)
-                                .frame(height: 50, alignment: .center)
+                            
+                            Image(systemName: "note.text")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 25, height: 25)
+                                .padding(5)
+                            
+                            VStack {
+                                Text(note.title)
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                
+                                Text(note.date.formatted(.dateTime))
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.5))
+                            }
+                            .padding(.vertical)
+                            .frame(maxWidth: .infinity)
+                            
                         }
+                        .frame(height: 100)
+                        .background(.regularMaterial)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(.secondary))
                     }
                 }
-                .padding()
+                .padding([.horizontal, .bottom])
+
             }
             .toolbar {
                 Button {

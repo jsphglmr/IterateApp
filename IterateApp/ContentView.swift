@@ -30,30 +30,9 @@ struct ContentView: View {
                         NavigationLink {
                             NoteView(note: note)
                         } label: {
-                            
-                            Image(systemName: "note.text")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 25, height: 25)
-                                .padding(5)
-                            
-                            VStack {
-                                Text(note.title)
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                
-                                Text(note.date.formatted(.dateTime))
-                                    .font(.caption)
-                                    .foregroundColor(.white.opacity(0.5))
-                            }
-                            .padding(.vertical)
-                            .frame(maxWidth: .infinity)
-                            
+                            NoteItemView(note: note)
                         }
-                        .frame(height: 100)
-                        .background(.regularMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(.secondary))
+                        .buttonStyle(.plain)
                     }
                 }
                 .padding([.horizontal, .bottom])

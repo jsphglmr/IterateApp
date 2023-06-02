@@ -11,6 +11,7 @@ struct NoteView: View {
     @State private var currentNote = ""
     
     let note: Note
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {

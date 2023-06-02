@@ -12,6 +12,8 @@ struct IterateAppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView(notes: Note.testNoteArray)
+                .background(Color(red: 0.1, green: 0.1, blue: 0.2))
+
                 .preferredColorScheme(.dark)
         }
     }

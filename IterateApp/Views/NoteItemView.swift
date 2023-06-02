@@ -11,8 +11,9 @@ struct NoteItemView: View {
     let note: Note
     
     var body: some View {
+        
         VStack {
-            Image(systemName: "note.text")
+            Image(systemName: note.symbol)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 25, height: 25)
@@ -30,7 +31,7 @@ struct NoteItemView: View {
             .padding(.vertical)
             .frame(maxWidth: .infinity)
         }
-        .frame(height: 100)
+        .frame(height: 150)
         .background(.regularMaterial)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(RoundedRectangle(cornerRadius: 10).stroke(.secondary))

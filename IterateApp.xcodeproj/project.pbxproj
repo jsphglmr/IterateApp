@@ -19,6 +19,7 @@
 		C7F278852A2A9BA30070CFF6 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F278842A2A9BA30070CFF6 /* Note.swift */; };
 		C7F278882A2A9C710070CFF6 /* NoteItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F278872A2A9C710070CFF6 /* NoteItemView.swift */; };
 		C7F2788B2A2A9E3D0070CFF6 /* SymbolPicker in Frameworks */ = {isa = PBXBuildFile; productRef = C7F2788A2A2A9E3D0070CFF6 /* SymbolPicker */; };
+		C7F2788E2A2A9EE40070CFF6 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C7F2788D2A2A9EE40070CFF6 /* KeychainAccess */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7F2788E2A2A9EE40070CFF6 /* KeychainAccess in Frameworks */,
 				C7F2788B2A2A9E3D0070CFF6 /* SymbolPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,6 +144,7 @@
 			name = IterateApp;
 			packageProductDependencies = (
 				C7F2788A2A2A9E3D0070CFF6 /* SymbolPicker */,
+				C7F2788D2A2A9EE40070CFF6 /* KeychainAccess */,
 			);
 			productName = IterateApp;
 			productReference = C76E01EF2A15941300E729D0 /* IterateApp.app */;
@@ -173,6 +176,7 @@
 			mainGroup = C76E01E62A15941300E729D0;
 			packageReferences = (
 				C7F278892A2A9E3D0070CFF6 /* XCRemoteSwiftPackageReference "SymbolPicker" */,
+				C7F2788C2A2A9EE40070CFF6 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = C76E01F02A15941300E729D0 /* Products */;
 			projectDirPath = "";
@@ -421,6 +425,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		C7F2788C2A2A9EE40070CFF6 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -428,6 +440,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C7F278892A2A9E3D0070CFF6 /* XCRemoteSwiftPackageReference "SymbolPicker" */;
 			productName = SymbolPicker;
+		};
+		C7F2788D2A2A9EE40070CFF6 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C7F2788C2A2A9EE40070CFF6 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

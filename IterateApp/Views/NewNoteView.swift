@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import SymbolPicker
 
 struct NewNoteView: View {
+    @Environment(\.dismiss) var dismiss
+
     @State private var noteTitle = ""
     @State private var noteTag = "Education"
-    @Environment(\.dismiss) var dismiss
+    
+    @State private var iconPickerPresented = false
+    @State private var icon = "pencil"
     
     let tagTypes = ["Education", "Health", "Personal", "Other"]
     var body: some View {
@@ -19,6 +24,24 @@ struct NewNoteView: View {
             Form {
                 Section("Note Title") {
                     TextField("Develop iOS app for...", text: $noteTitle)
+                }
+                
+                Section("Symbol") {
+                    
+
+
+                        Button {
+                            iconPickerPresented = true
+                        } label: {
+                            HStack {
+                                Image(systemName: icon)
+                                Text(icon)
+                            }
+                        }
+                        .sheet(isPresented: $iconPickerPresented) {
+                            SymbolPicker(symbol: $icon)
+                        }
+                    
                 }
                 
                 Section("Tag") {

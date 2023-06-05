@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NoteView: View {
+struct NoteDetailView: View {
     @State private var currentNote = ""
     
     let note: Note
@@ -30,7 +30,7 @@ struct NoteView: View {
 
 struct NoteView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteView(note: Note.testNote)
+        NoteDetailView(note: Note.testNote)
             .preferredColorScheme(.dark)
 
     }

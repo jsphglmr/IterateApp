@@ -9,24 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var name = ""
-    @State private var showingNewNoteView = false
-    
-    let notes: [Note]
-    
+    @StateObject private var viewModel = NoteViewModel()
+
     let columns = [
         GridItem(.adaptive(minimum: 150))
     ]
     
     var body: some View {
-        
         NavigationStack {
             ScrollView {
                 LazyVGrid(columns: columns) {
-                    
-                    ForEach(notes) { note in
-//                        Text(note.title)
-                        
+                    ForEach(viewModel.notes) { note in
                         NavigationLink {
                             NoteView(note: note)
                         } label: {
@@ -36,27 +29,27 @@ struct ContentView: View {
                     }
                 }
                 .padding([.horizontal, .bottom])
-
             }
             .toolbar {
                 Button {
-                    showingNewNoteView = true
+                    viewModel.showingNewNoteView = true
                 } label: {
                     Image(systemName: "plus")
                 }
-                .sheet(isPresented: $showingNewNoteView) {
+                .sheet(isPresented: $viewModel.showingNewNoteView) {
                     NewNoteView()
                 }
                 .navigationTitle("Iterate")
+                
             }
         }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    static let noteArray = Note.testNoteArray
+    static let testNoteArray = Note.testNoteArray
     static var previews: some View {
-        ContentView(notes: noteArray)
+        ContentView()
             .preferredColorScheme(.dark)
     }
 }

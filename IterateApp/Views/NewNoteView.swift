@@ -10,12 +10,13 @@ import SymbolPicker
 
 struct NewNoteView: View {
     @Environment(\.dismiss) var dismiss
-
+    @StateObject private var viewModel = NoteViewModel()
+    
     @State private var noteTitle = ""
     @State private var noteTag = "Education"
     
     @State private var iconPickerPresented = false
-    @State private var icon = "pencil"
+    @State private var symbol = "pencil"
     
     let tagTypes = ["Education", "Health", "Personal", "Other"]
     var body: some View {
@@ -24,37 +25,26 @@ struct NewNoteView: View {
             Form {
                 Section("Note Title") {
                     TextField("Develop iOS app for...", text: $noteTitle)
+                        .multilineTextAlignment(.leading)
                 }
                 
                 Section("Symbol") {
-                    
-
-
-                        Button {
-                            iconPickerPresented = true
-                        } label: {
-                            HStack {
-                                Image(systemName: icon)
-                                Text(icon)
-                            }
-                        }
-                        .sheet(isPresented: $iconPickerPresented) {
-                            SymbolPicker(symbol: $icon)
-                        }
-                    
-                }
-                
-                Section("Tag") {
-                    Picker("Tag", selection: $noteTag) {
-                        ForEach(tagTypes, id: \.self) { type in
-                            Text(type)
+                    Button {
+                        iconPickerPresented = true
+                    } label: {
+                        HStack {
+                            Image(systemName: symbol)
+                            Text(symbol)
                         }
                     }
-                    .pickerStyle(.segmented)
+                    .sheet(isPresented: $iconPickerPresented) {
+                        SymbolPicker(symbol: $symbol)
+                    }
                 }
                 
                 Button("Add") {
-                    addNewNote(title: noteTitle, tag: noteTag)
+                    viewModel.addNote(title: noteTitle, symbol: symbol)
+                    dismiss()
                 }
             }
             .toolbar {
@@ -63,10 +53,6 @@ struct NewNoteView: View {
                 }
             }
         }
-    }
-    
-    func addNewNote(title: String, tag: String) {
-        //add note to db
     }
 }
 

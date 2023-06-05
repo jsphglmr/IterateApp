@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @StateObject private var viewModel = NoteViewModel()
-
+    
     let columns = [
         GridItem(.adaptive(minimum: 150))
     ]
@@ -21,27 +21,42 @@ struct ContentView: View {
                 LazyVGrid(columns: columns) {
                     ForEach(viewModel.notes) { note in
                         NavigationLink {
-                            NoteView(note: note)
+                            NoteDetailView(note: note)
                         } label: {
-                            NoteItemView(note: note)
+                            NoteCellView(note: note)
                         }
                         .buttonStyle(.plain)
                     }
                 }
                 .padding([.horizontal, .bottom])
             }
+            
             .toolbar {
-                Button {
-                    viewModel.showingNewNoteView = true
-                } label: {
-                    Image(systemName: "plus")
+                ToolbarItemGroup(placement: .bottomBar) {
+                    Button {
+                        viewModel.showingNewNoteView = true
+                    } label: {
+                        HStack{
+                            Image(systemName: "plus.circle.fill")
+                                
+                            Text("New Project")
+                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+
+                        }
+                        .bold()
+                        .foregroundColor(.red)
+                        .buttonStyle(.borderedProminent)
+                        .sheet(isPresented: $viewModel.showingNewNoteView) {
+                            NewNoteView()
+                        }
+
+                    }
+                    Spacer()
+                    
                 }
-                .sheet(isPresented: $viewModel.showingNewNoteView) {
-                    NewNoteView()
-                }
-                .navigationTitle("Iterate")
                 
             }
+            .navigationTitle("Iterate")
         }
     }
 }

@@ -21,7 +21,9 @@ struct NoteItemView: View {
             
             VStack {
                 Text(note.title)
-                    .font(.headline)
+                    .font(.subheadline)
+                    .bold()
+                    .scaledToFit()
                     .foregroundColor(.white)
                 
                 Text(note.date.formatted(.dateTime))

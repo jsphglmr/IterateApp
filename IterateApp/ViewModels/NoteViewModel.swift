@@ -36,7 +36,7 @@ import LocalAuthentication
     }
     
     func addNote(title: String, symbol: String) {
-        let newNote = Note(id: UUID(), title: "New Note", symbol: "pencil", body: "", date: Date.now)
+        let newNote = Note(id: UUID(), title: title, symbol: symbol, body: "", date: Date.now)
         notes.append(newNote)
         save()
     }

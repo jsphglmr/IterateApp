@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NoteItemView: View {
+struct NoteCellView: View {
     let note: Note
     
     var body: some View {
@@ -26,7 +26,7 @@ struct NoteItemView: View {
                     .scaledToFit()
                     .foregroundColor(.white)
                 
-                Text(note.date.formatted(.dateTime))
+                Text("Last edit: \(note.formattedDate)")
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.5))
             }
@@ -42,7 +42,7 @@ struct NoteItemView: View {
 
 struct NoteItemView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteItemView(note: Note.testNote)
+        NoteCellView(note: Note.testNote)
             .preferredColorScheme(.dark)
     }
 }

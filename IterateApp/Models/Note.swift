@@ -15,6 +15,18 @@ struct Note: Codable, Identifiable, Equatable {
     var date: Date
 }
 
+///Computed properties
+extension Note {
+    var formattedDate: String {
+        let newDate = date.formatted(
+            .dateTime
+                .month(.abbreviated).day(.defaultDigits).year(.twoDigits)
+                .hour(.defaultDigits(amPM: .abbreviated)))
+        return newDate
+    }
+}
+
+/// Test Note Data
 extension Note {
     
     static public let testNote = Note(id: UUID(), title: "Note1 Title", symbol: "pencil", body: "Note1 Body", date: Date())

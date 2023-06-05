@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Note: Codable, Identifiable {
+struct Note: Codable, Identifiable, Equatable {
     var id: UUID
     var title: String
     var symbol: String
@@ -16,8 +16,9 @@ struct Note: Codable, Identifiable {
 }
 
 extension Note {
-    static public var testNote = Note(id: UUID(), title: "Note1 Title", symbol: "pencil", body: "Note1 Body", date: Date())
-    static public var testNoteArray = [
+    
+    static public let testNote = Note(id: UUID(), title: "Note1 Title", symbol: "pencil", body: "Note1 Body", date: Date())
+    static public let testNoteArray = [
         
             Note(id: UUID(),
                  title: "Note1 Title",

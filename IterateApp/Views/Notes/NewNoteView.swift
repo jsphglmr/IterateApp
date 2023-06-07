@@ -49,7 +49,7 @@ struct NewNoteView: View {
                     
                     
                     ColorPicker("Note Color", selection: $noteColor)
-                        .padding(.trailing, 200)
+                        .padding(.trailing)
                         .foregroundColor(noteColor)
                         
                     

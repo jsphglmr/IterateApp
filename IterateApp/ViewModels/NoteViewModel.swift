@@ -35,6 +35,15 @@ import LocalAuthentication
         }
     }
     
+    func update() {
+        do {
+            let data = try Data(contentsOf: savePath)
+            notes = try JSONDecoder().decode([Note].self, from: data)
+        } catch {
+            notes = []
+        }
+    }
+    
     func addNote(title: String, symbol: String) {
         let newNote = Note(id: UUID(), title: title, symbol: symbol, body: "", date: Date.now)
         notes.append(newNote)

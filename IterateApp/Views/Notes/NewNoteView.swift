@@ -17,6 +17,12 @@ struct NewNoteView: View {
     
     @State private var iconPickerPresented = false
     @State private var symbol = "pencil"
+    @State private var noteColor = Color.blue
+    
+    var defaultColor: Color {
+        let colors = [Color.red, Color.orange, Color.yellow, Color.green, Color.blue, Color.indigo, Color.purple]
+        return colors.randomElement() ?? Color.red
+    }
     
     let tagTypes = ["Education", "Health", "Personal", "Other"]
     var body: some View {
@@ -28,7 +34,7 @@ struct NewNoteView: View {
                         .multilineTextAlignment(.leading)
                 }
                 
-                Section("Symbol") {
+                Section("Customize") {
                     Button {
                         iconPickerPresented = true
                     } label: {
@@ -40,6 +46,13 @@ struct NewNoteView: View {
                     .sheet(isPresented: $iconPickerPresented) {
                         SymbolPicker(symbol: $symbol)
                     }
+                    
+                    
+                    ColorPicker("Note Color", selection: $noteColor)
+                        .padding(.trailing, 200)
+                        .foregroundColor(noteColor)
+                        
+                    
                 }
                 
                 Button("Add") {

@@ -14,21 +14,31 @@ struct NoteDetailView: View {
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
-                Section("New Iteration") {
-                    TextEditor(text: $currentNote)
+            ScrollView {
+                VStack(alignment: .leading) {
+                    Text(note.description)
+                        .font(.largeTitle)
+                        .bold()
+                        .padding(.vertical, 25)
+                    
+                    Section("Todays thoughts:") {
+                        Text(note.formattedDate)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        TextEditor(text: $currentNote)
+                            .lineSpacing(10)
+                            .font(.title)
+                    }
                 }
-                Text(Date.now.formatted())
+                .navigationTitle(note.title)
             }
-            .navigationTitle(note.title)
         }
-
     }
 }
 
 struct NoteView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteDetailView(note: Note.testNote)
+        NoteDetailView(note: Note.testNoteArray[1])
             .preferredColorScheme(.dark)
 
     }

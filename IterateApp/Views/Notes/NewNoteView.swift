@@ -14,9 +14,10 @@ struct NewNoteView: View {
     
     @State private var iconPickerPresented = false
     
+    let colors = [Color.red, Color.orange, Color.yellow, Color.green, Color.blue, Color.indigo, Color.purple]
+    
     var defaultColor: Color {
-        let colors = [Color.red, Color.orange, Color.yellow, Color.green, Color.blue, Color.indigo, Color.purple]
-        return colors.randomElement() ?? Color.red
+        return colors.randomElement() ?? Color.blue
     }
     
     let tagTypes = ["Education", "Health", "Personal", "Other"]
@@ -25,8 +26,14 @@ struct NewNoteView: View {
         NavigationView {
             Form {
                 Section("Note Title") {
-                    TextField("Develop iOS app for...", text: $viewModel.noteTitle)
+                    TextField("A new way to...", text: $viewModel.noteTitle)
                         .multilineTextAlignment(.leading)
+                }
+                
+                Section("Description") {
+                    TextField("The goal of this is...", text: $viewModel.noteDescription)
+                        .multilineTextAlignment(.leading)
+
                 }
                 
                 Section("Customize") {
@@ -37,22 +44,19 @@ struct NewNoteView: View {
                             Image(systemName: viewModel.symbol)
                             Text(viewModel.symbol)
                         }
+                        .tint(defaultColor)
                     }
                     .sheet(isPresented: $iconPickerPresented) {
                         SymbolPicker(symbol: $viewModel.symbol)
                     }
-                    
-                    
-                    ColorPicker("Note Color", selection: $viewModel.noteColor, supportsOpacity: false)
-                        .padding(.trailing)
-                        .foregroundColor(viewModel.noteColor)
                 }
                 
                 Button("Add") {
-                    viewModel.addNote(title: viewModel.noteTitle, symbol: viewModel.symbol)
+                    viewModel.addNote(title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol)
                     dismiss()
                 }
             }
+            .foregroundColor(defaultColor)
             .toolbar {
                 Button("Cancel") {
                     dismiss()

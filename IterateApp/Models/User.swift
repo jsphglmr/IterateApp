@@ -16,6 +16,7 @@ struct User: Codable, Identifiable, Equatable {
     var notes: [Note]
 }
 
+///Test User
 extension User {
     
     static public var testUser = User(
@@ -29,12 +30,12 @@ extension User {
                  title: "Note1 Title",
                  symbol: "pencil",
                  body: "Note1 Body",
-                 date: Date()),
+                 creationDate: Date()),
             
             Note(id: UUID(),
                  title: "Note2 Title",
                  symbol: "pen",
                  body: "Note2 Body",
-                 date: Date())
+                 creationDate: Date())
         ])
 }

@@ -5,13 +5,19 @@
 //  Created by Joseph Gilmore on 6/2/23.
 //
 
-import Foundation
+import SwiftUI
 
 @MainActor class NoteViewModel: ObservableObject {
-    @Published var name = ""
+    
     @Published var showingNewNoteView = false
     @Published var notes: [Note] = []
     @Published var selectedNote: Note?
+    
+    ///New Notes
+    @Published var noteTitle = ""
+    @Published var noteTag = "Education"
+    @Published var symbol = "pencil"
+    @Published var noteColor = Color.blue
     
     let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedNotes")
     
@@ -23,7 +29,7 @@ import Foundation
             notes = []
         }
     }
-    
+    //MARK: - FileManager CRUD
     func save() {
         do {
             let data = try JSONEncoder().encode(notes)
@@ -33,7 +39,7 @@ import Foundation
         }
     }
     
-    func update() {
+    func refreshData() {
         do {
             let data = try Data(contentsOf: savePath)
             notes = try JSONDecoder().decode([Note].self, from: data)
@@ -42,8 +48,9 @@ import Foundation
         }
     }
     
+    //MARK: - Note CRUD
     func addNote(title: String, symbol: String) {
-        let newNote = Note(id: UUID(), title: title, symbol: symbol, body: "", date: Date.now)
+        let newNote = Note(id: UUID(), title: title, symbol: symbol, body: "", creationDate: Date.now)
         notes.append(newNote)
         save()
     }

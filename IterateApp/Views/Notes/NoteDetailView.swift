@@ -18,9 +18,7 @@ struct NoteDetailView: View {
                 Section("New Iteration") {
                     TextEditor(text: $currentNote)
                 }
-                    
                 Text(Date.now.formatted())
-
             }
             .navigationTitle(note.title)
         }

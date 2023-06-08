@@ -12,12 +12,7 @@ struct NewNoteView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel = NoteViewModel()
     
-    @State private var noteTitle = ""
-    @State private var noteTag = "Education"
-    
     @State private var iconPickerPresented = false
-    @State private var symbol = "pencil"
-    @State private var noteColor = Color.blue
     
     var defaultColor: Color {
         let colors = [Color.red, Color.orange, Color.yellow, Color.green, Color.blue, Color.indigo, Color.purple]
@@ -30,7 +25,7 @@ struct NewNoteView: View {
         NavigationView {
             Form {
                 Section("Note Title") {
-                    TextField("Develop iOS app for...", text: $noteTitle)
+                    TextField("Develop iOS app for...", text: $viewModel.noteTitle)
                         .multilineTextAlignment(.leading)
                 }
                 
@@ -39,24 +34,22 @@ struct NewNoteView: View {
                         iconPickerPresented = true
                     } label: {
                         HStack {
-                            Image(systemName: symbol)
-                            Text(symbol)
+                            Image(systemName: viewModel.symbol)
+                            Text(viewModel.symbol)
                         }
                     }
                     .sheet(isPresented: $iconPickerPresented) {
-                        SymbolPicker(symbol: $symbol)
+                        SymbolPicker(symbol: $viewModel.symbol)
                     }
                     
                     
-                    ColorPicker("Note Color", selection: $noteColor)
+                    ColorPicker("Note Color", selection: $viewModel.noteColor, supportsOpacity: false)
                         .padding(.trailing)
-                        .foregroundColor(noteColor)
-                        
-                    
+                        .foregroundColor(viewModel.noteColor)
                 }
                 
                 Button("Add") {
-                    viewModel.addNote(title: noteTitle, symbol: symbol)
+                    viewModel.addNote(title: viewModel.noteTitle, symbol: viewModel.symbol)
                     dismiss()
                 }
             }

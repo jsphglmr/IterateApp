@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NotesHomeView: View {
-    
     @ObservedObject var viewModel = NoteViewModel()
     
     let columns = [
@@ -19,7 +18,7 @@ struct NotesHomeView: View {
         NavigationStack {
             ScrollView {
                 LazyVGrid(columns: columns) {
-                    ForEach(viewModel.notes) { note in
+                    ForEach(viewModel.notes, id: \.id) { note in
                         NavigationLink {
                             NoteDetailView(note: note)
                         } label: {
@@ -32,10 +31,19 @@ struct NotesHomeView: View {
             }
             
             .refreshable {
-                viewModel.update()
+                viewModel.refreshData()
             }
             
             .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        //do something
+                    } label: {
+                        Image(systemName: "ellipsis.circle.fill")
+                    }
+                    .tint(.red)
+
+                }
                 ToolbarItemGroup(placement: .bottomBar) {
                     Button {
                         viewModel.showingNewNoteView = true
@@ -49,7 +57,10 @@ struct NotesHomeView: View {
                         .bold()
                         .foregroundColor(.red)
                         .buttonStyle(.borderedProminent)
+
                         .sheet(isPresented: $viewModel.showingNewNoteView) {
+                            viewModel.refreshData()
+                        } content: {
                             NewNoteView()
                         }
                     }

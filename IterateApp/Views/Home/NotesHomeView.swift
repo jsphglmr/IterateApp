@@ -10,49 +10,32 @@ import SwiftUI
 struct NotesHomeView: View {
     @ObservedObject var viewModel = NoteViewModel()
     
-    let columns = [
-        GridItem(.adaptive(minimum: 150))
-    ]
-    
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: columns) {
-                    ForEach(viewModel.notes, id: \.id) { note in
-                        NavigationLink {
-                            NoteDetailView(note: note)
-                        } label: {
-                            NoteCellView(note: note)
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
-                .padding([.horizontal, .bottom])
-            }
-            
-            .refreshable {
-                viewModel.refreshData()
-            }
-            
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        //do something
+            List {
+                ForEach(viewModel.notes, id: \.id) { note in
+                    NavigationLink {
+                        NoteDetailView(note: note)
                     } label: {
-                        Image(systemName: "ellipsis.circle.fill")
+                        NoteCellView(note: note)
                     }
-                    .tint(.red)
-
+                    .buttonStyle(.plain)
                 }
-                ToolbarItemGroup(placement: .bottomBar) {
+                .onDelete(perform: viewModel.deleteNote)
+                
+                .refreshable {
+                    viewModel.refreshData()
+                }
+            }
+            .toolbar {
+                
+                ToolbarItem(placement: .automatic) {
                     Button {
                         viewModel.showingNewNoteView = true
                     } label: {
-                        HStack{
+                        HStack {
                             Image(systemName: "plus.circle.fill")
-                                
-                            Text("New Project")
-                                .font(.title)
+                                .font(.largeTitle)
                         }
                         .bold()
                         .foregroundColor(.red)
@@ -64,10 +47,8 @@ struct NotesHomeView: View {
                             NewNoteView()
                         }
                     }
-                    Spacer()
                 }
             }
-            .navigationTitle("Iterate")
         }
     }
 }

@@ -13,7 +13,6 @@ struct IterateAppApp: App {
         WindowGroup {
             ContentView()
                 .background(Color(red: 0.1, green: 0.1, blue: 0.2))
-
                 .preferredColorScheme(.dark)
         }
     }

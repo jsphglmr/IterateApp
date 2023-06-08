@@ -28,12 +28,14 @@ extension User {
         notes: [
             Note(id: UUID(),
                  title: "Note1 Title",
+                 description: "Test description",
                  symbol: "pencil",
                  body: "Note1 Body",
                  creationDate: Date()),
             
             Note(id: UUID(),
                  title: "Note2 Title",
+                 description: "Test description",
                  symbol: "pen",
                  body: "Note2 Body",
                  creationDate: Date())

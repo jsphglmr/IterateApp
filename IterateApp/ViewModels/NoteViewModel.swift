@@ -15,6 +15,7 @@ import SwiftUI
     
     ///New Notes
     @Published var noteTitle = ""
+    @Published var noteDescription = ""
     @Published var noteTag = "Education"
     @Published var symbol = "pencil"
     @Published var noteColor = Color.blue
@@ -49,8 +50,8 @@ import SwiftUI
     }
     
     //MARK: - Note CRUD
-    func addNote(title: String, symbol: String) {
-        let newNote = Note(id: UUID(), title: title, symbol: symbol, body: "", creationDate: Date.now)
+    func addNote(title: String, description: String, symbol: String) {
+        let newNote = Note(id: UUID(), title: title, description: description, symbol: symbol, body: "", creationDate: Date.now)
         notes.append(newNote)
         save()
     }
@@ -59,6 +60,13 @@ import SwiftUI
         guard let selectedNote = selectedNote else { return }
         if let index = notes.firstIndex(of: selectedNote) {
             notes[index] = note
+            save()
+        }
+    }
+    
+    func deleteNote(at offsets: IndexSet) {
+        for offset in offsets {
+            notes.remove(at: offset)
             save()
         }
     }

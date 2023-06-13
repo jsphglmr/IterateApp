@@ -14,11 +14,12 @@ struct NewNoteView: View {
     
     @State private var iconPickerPresented = false
     
+    var allFieldsComplete: Bool {
+        viewModel.noteTitle.isEmpty || viewModel.noteDescription.isEmpty || viewModel.noteColor.isEmpty
+    }
+    
     let colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"]
-    
-    @State private var defaultColor: String = "red"
-    
-    let tagTypes = ["Education", "Health", "Personal", "Other"]
+            
     var body: some View {
         
         NavigationView {
@@ -32,6 +33,8 @@ struct NewNoteView: View {
                     viewModel.addNote(title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol)
                     dismiss()
                 }
+                .foregroundColor(Color(colorName: viewModel.noteColor))
+                .disabled(allFieldsComplete)
             }
             .toolbar {
                 Button("Cancel") {
@@ -102,7 +105,6 @@ extension NewNoteView {
             .padding(.vertical, 10)
         }
         .ignoresSafeArea()
-        .foregroundColor(Color(colorName: viewModel.noteColor))
     }
 }
 

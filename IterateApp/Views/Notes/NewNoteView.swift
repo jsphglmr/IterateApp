@@ -14,55 +14,95 @@ struct NewNoteView: View {
     
     @State private var iconPickerPresented = false
     
-    let colors = [Color.red, Color.orange, Color.yellow, Color.green, Color.blue, Color.indigo, Color.purple]
+    let colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"]
     
-    var defaultColor: Color {
-        return colors.randomElement() ?? Color.blue
-    }
+    @State private var defaultColor: String = "red"
     
     let tagTypes = ["Education", "Health", "Personal", "Other"]
     var body: some View {
         
         NavigationView {
             Form {
-                Section("Note Title") {
-                    TextField("A new way to...", text: $viewModel.noteTitle)
-                        .multilineTextAlignment(.leading)
-                }
-                
-                Section("Description") {
-                    TextField("The goal of this is...", text: $viewModel.noteDescription)
-                        .multilineTextAlignment(.leading)
-
-                }
-                
-                Section("Customize") {
-                    Button {
-                        iconPickerPresented = true
-                    } label: {
-                        HStack {
-                            Image(systemName: viewModel.symbol)
-                            Text(viewModel.symbol)
-                        }
-                        .tint(defaultColor)
-                    }
-                    .sheet(isPresented: $iconPickerPresented) {
-                        SymbolPicker(symbol: $viewModel.symbol)
-                    }
-                }
+                titleInput
+                goalInput
+                iconSelector
+                colorSelector
                 
                 Button("Add") {
                     viewModel.addNote(title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol)
                     dismiss()
                 }
             }
-            .foregroundColor(defaultColor)
             .toolbar {
                 Button("Cancel") {
                     dismiss()
                 }
             }
         }
+    }
+}
+
+///Title View
+extension NewNoteView {
+    var titleInput: some View {
+        Section("Note Title") {
+            TextField("A new way to...", text: $viewModel.noteTitle)
+                .multilineTextAlignment(.leading)
+        }
+    }
+}
+
+///Goal Selector View
+extension NewNoteView {
+    var goalInput: some View {
+        Section("Description") {
+            TextField("The goal of this is...", text: $viewModel.noteDescription)
+                .multilineTextAlignment(.leading)
+        }
+    }
+}
+
+///Icon Selector View
+extension NewNoteView {
+    var iconSelector: some View {
+        Section("Icon") {
+            Button {
+                iconPickerPresented = true
+            } label: {
+                HStack {
+                    Image(systemName: viewModel.symbol)
+                    Text(viewModel.symbol)
+                }
+            }
+            .sheet(isPresented: $iconPickerPresented) {
+                SymbolPicker(symbol: $viewModel.symbol)
+            }
+        }
+    }
+}
+
+///Color Selector View
+extension NewNoteView {
+    var colorSelector: some View {
+        Section("Accent Color") {
+            ScrollView(.horizontal){
+                HStack(spacing: 20) {
+                    ForEach(colors, id: \.self) { color in
+                        Button {
+                            viewModel.noteColor = color
+                        } label: {
+                            Circle()
+                                .frame(width: 40)
+                                .foregroundStyle(Color(colorName: color)!)
+                        }
+                    }
+                }
+            }
+            .shadow(radius: 5, y: 8)
+            .padding(.vertical, 10)
+        }
+        .ignoresSafeArea()
+        .foregroundColor(Color(colorName: viewModel.noteColor))
     }
 }
 

@@ -30,6 +30,7 @@ extension User {
                  title: "Note1 Title",
                  description: "Test description",
                  symbol: "pencil",
+                 accentColor: "red",
                  body: "Note1 Body",
                  creationDate: Date()),
             
@@ -37,6 +38,7 @@ extension User {
                  title: "Note2 Title",
                  description: "Test description",
                  symbol: "pen",
+                 accentColor: "red",
                  body: "Note2 Body",
                  creationDate: Date())
         ])

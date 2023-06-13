@@ -19,6 +19,7 @@
 		C7B164BB2A2E6EFD001E2DEE /* NotesHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B164BA2A2E6EFD001E2DEE /* NotesHomeView.swift */; };
 		C7C04D932A31968600763870 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C04D922A31968600763870 /* Authentication.swift */; };
 		C7C197BA2A32706C001CB12A /* NoteDetailMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C197B92A32706C001CB12A /* NoteDetailMenuView.swift */; };
+		C7C197C12A383BBD001CB12A /* Color+ColorString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C197C02A383BBD001CB12A /* Color+ColorString.swift */; };
 		C7F278822A2A97440070CFF6 /* NoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F278812A2A97440070CFF6 /* NoteViewModel.swift */; };
 		C7F278852A2A9BA30070CFF6 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F278842A2A9BA30070CFF6 /* Note.swift */; };
 		C7F278882A2A9C710070CFF6 /* NoteCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F278872A2A9C710070CFF6 /* NoteCellView.swift */; };
@@ -41,6 +42,7 @@
 		C7B164BA2A2E6EFD001E2DEE /* NotesHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesHomeView.swift; sourceTree = "<group>"; };
 		C7C04D922A31968600763870 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		C7C197B92A32706C001CB12A /* NoteDetailMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailMenuView.swift; sourceTree = "<group>"; };
+		C7C197C02A383BBD001CB12A /* Color+ColorString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+ColorString.swift"; sourceTree = "<group>"; };
 		C7F278812A2A97440070CFF6 /* NoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewModel.swift; sourceTree = "<group>"; };
 		C7F278842A2A9BA30070CFF6 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		C7F278872A2A9C710070CFF6 /* NoteCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCellView.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				C76E024A2A1BC94C00E729D0 /* Bundle+Decode.swift */,
+				C7C197C02A383BBD001CB12A /* Color+ColorString.swift */,
 				C7B164B62A2B1CA3001E2DEE /* FileManager+DocumentsDirectory.swift */,
 			);
 			path = Extensions;
@@ -246,6 +249,7 @@
 				C7B164BB2A2E6EFD001E2DEE /* NotesHomeView.swift in Sources */,
 				C76E01F52A15941300E729D0 /* ContentView.swift in Sources */,
 				C76E01F32A15941300E729D0 /* IterateAppApp.swift in Sources */,
+				C7C197C12A383BBD001CB12A /* Color+ColorString.swift in Sources */,
 				C76E02402A19EA1D00E729D0 /* NoteDetailView.swift in Sources */,
 				C7F278822A2A97440070CFF6 /* NoteViewModel.swift in Sources */,
 				C76E02012A15944A00E729D0 /* User.swift in Sources */,

@@ -16,15 +16,16 @@ struct NoteCellView: View {
             Image(systemName: note.symbol)
                 .resizable()
                 .scaledToFit()
-                .frame(width: 25, height: 25)
+                .frame(width: 45, height: 45)
                 .padding(.horizontal, 15)
+                .foregroundColor(Color(colorName: note.accentColor))
             
             VStack(alignment: .leading) {
                 Text(note.title)
                     .font(.title2)
                     .bold()
                     .scaledToFit()
-                    .foregroundColor(.white)
+                    .foregroundColor(Color(colorName: note.accentColor))
                 
                 Text(note.description)
                     .padding(.vertical, 3)
@@ -37,9 +38,9 @@ struct NoteCellView: View {
         }
         .frame(height: 150)
         .frame(maxWidth: .infinity)
-        .background(.regularMaterial)
+        .background(.white.opacity(0.1))
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .overlay(RoundedRectangle(cornerRadius: 10).stroke(.secondary))
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(colorName: note.accentColor)!))
         .padding(.horizontal, 15)
         .padding(.vertical, 10)
     }

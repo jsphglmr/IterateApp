@@ -51,7 +51,7 @@ import SwiftUI
     
     //MARK: - Note CRUD
     func addNote(title: String, description: String, symbol: String) {
-        let newNote = Note(id: UUID(), title: title, description: description, symbol: symbol, accentColor: "red", body: "", creationDate: Date.now)
+        let newNote = Note(id: UUID(), title: title, description: description, symbol: symbol, accentColor: noteColor, body: "", creationDate: Date.now)
         notes.append(newNote)
         save()
     }

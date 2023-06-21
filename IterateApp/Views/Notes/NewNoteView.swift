@@ -28,12 +28,12 @@ struct NewNoteView: View {
                 goalInput
                 iconSelector
                 colorSelector
+                notePreview
                 
                 Button("Add") {
                     viewModel.addNote(title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol)
                     dismiss()
                 }
-                .foregroundColor(Color(colorName: viewModel.noteColor))
                 .disabled(allFieldsComplete)
             }
             .toolbar {
@@ -80,6 +80,15 @@ extension NewNoteView {
             .sheet(isPresented: $iconPickerPresented) {
                 SymbolPicker(symbol: $viewModel.symbol)
             }
+        }
+    }
+}
+
+///Note Preview
+extension NewNoteView {
+    var notePreview: some View {
+        Section("Preview") {
+            NoteCellView(note: Note(id: UUID(), title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol, accentColor: viewModel.noteColor, body: "", creationDate: Date.now))
         }
     }
 }

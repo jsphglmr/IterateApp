@@ -19,7 +19,6 @@ struct NotesHomeView: View {
                     } label: {
                         NoteCellView(note: note)
                     }
-                    .buttonStyle(.plain)
                 }
                 .onDelete(perform: viewModel.deleteNote)
                 
@@ -27,6 +26,7 @@ struct NotesHomeView: View {
                     viewModel.refreshData()
                 }
             }
+            .navigationTitle("Iterate")
             .toolbar {
                 
                 ToolbarItem(placement: .automatic) {
@@ -34,11 +34,12 @@ struct NotesHomeView: View {
                         viewModel.showingNewNoteView = true
                     } label: {
                         HStack {
+                            Text("New Note")
+                                .font(.title3)
                             Image(systemName: "plus.circle.fill")
-                                .font(.largeTitle)
+                                .font(.title3)
                         }
                         .bold()
-                        .foregroundColor(.red)
                         .buttonStyle(.borderedProminent)
 
                         .sheet(isPresented: $viewModel.showingNewNoteView) {
@@ -46,6 +47,7 @@ struct NotesHomeView: View {
                         } content: {
                             NewNoteView()
                         }
+                        .padding(.bottom)
                     }
                 }
             }

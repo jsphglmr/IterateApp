@@ -13,7 +13,7 @@ struct Note: Codable, Identifiable, Equatable {
     var description: String
     var symbol: String
     var accentColor: String
-    var body: String
+    var body: [NoteBody]
     var creationDate: Date
 }
 
@@ -30,8 +30,7 @@ extension Note {
 
 /// Test Note Data
 extension Note {
-    
-    static public let testNote = Note(id: UUID(), title: "Note1 Title", description: "Test description", symbol: "pencil", accentColor: "red", body: "Note1 Body", creationDate: Date())
+    static public let testNote = Note(id: UUID(), title: "Note1 Title", description: "Test description", symbol: "pencil", accentColor: "red", body: NoteBody.testNoteBodies, creationDate: Date())
     static public let testNoteArray = [
         
             Note(id: UUID(),
@@ -39,7 +38,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: "Note1 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
             
             Note(id: UUID(),
@@ -47,7 +46,7 @@ extension Note {
                  description: "Test long long long description Test Test Test Test Test Test Test",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: "Note2 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
             
             Note(id: UUID(),
@@ -55,7 +54,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: "Note3 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
         
             Note(id: UUID(),
@@ -63,7 +62,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: "Note4 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
             
             Note(id: UUID(),
@@ -71,7 +70,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: "Note5 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
 
             Note(id: UUID(),
@@ -79,7 +78,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: "Note6 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
             
             Note(id: UUID(),
@@ -87,7 +86,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: "Note7 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
             
             Note(id: UUID(),
@@ -95,7 +94,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: "Note8 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
             
             Note(id: UUID(),
@@ -103,7 +102,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: "Note9 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
             
             Note(id: UUID(),
@@ -111,7 +110,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: "Note10 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
             
             Note(id: UUID(),
@@ -119,7 +118,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: "Note11 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
             
             Note(id: UUID(),
@@ -127,7 +126,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: "Note12 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
             
             Note(id: UUID(),
@@ -135,7 +134,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: "Note13 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date()),
             
             Note(id: UUID(),
@@ -143,7 +142,7 @@ extension Note {
                  description: "Test description",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: "Note14 Body",
+                 body: NoteBody.testNoteBodies,
                  creationDate: Date())
     ]
 }

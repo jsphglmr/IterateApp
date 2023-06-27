@@ -8,38 +8,62 @@
 import SwiftUI
 
 struct NoteDetailView: View {
-    @State private var currentNote = ""
+    @StateObject private var viewModel = NoteViewModel()
     
-    let note: Note
+    let note: NoteIdea
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    Text(note.description)
-                        .font(.largeTitle)
-                        .bold()
-                        .padding(.vertical, 25)
-                    
-                    Section("Todays thoughts:") {
-                        Text(note.formattedDate)
-                            .font(.caption)
-                            .foregroundColor(.secondary)
-                        TextEditor(text: $currentNote)
-                            .lineSpacing(10)
-                            .font(.title)
+            
+            Form {
+                Section {
+                    VStack(alignment: .leading) {
+                        Text(note.title)
+                            .font(.title2)
+                            .foregroundColor(Color(colorName: note.accentColor))
+                            .bold()
+                        Divider()
+                        Text(note.description)
+                            .font(.title3)
                     }
                 }
-                .navigationTitle(note.title)
+                
+                Section {
+                    VStack {
+                        TextField("New Note Textfield", text: $viewModel.newIteration.body, prompt: Text("New Iteration..."), axis: .vertical)
+                            .onSubmit {
+                                let iteration = Note(id: UUID(), body: viewModel.newIteration.body, creationDate: Date.now)
+                                viewModel.updateNoteIdea(note: note)
+                            }
+                    }
+                } footer: {
+                    VStack(alignment: .trailing) {
+                        Text("Characters: \(viewModel.newIteration.body.count)/280")
+                            .foregroundColor(.secondary)
+                    }
+                }
+                
+                ForEach(note.notes) { iteration in
+                    Section {
+                        VStack(alignment: .leading){
+                            Text(iteration.body)
+                        }
+                    } footer: {
+                        Text(iteration.formattedDate)
+                    }
+                }
             }
         }
     }
 }
 
+
+
+
 struct NoteView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteDetailView(note: Note.testNoteArray[1])
+        NoteDetailView(note: NoteIdea.testNoteArray[1])
             .preferredColorScheme(.dark)
-
+        
     }
 }

@@ -13,11 +13,11 @@ struct NoteIdea: Codable, Identifiable, Equatable {
     var description: String
     var symbol: String
     var accentColor: String
-    var body: [Note]
+    var notes: [Note]
     var creationDate: Date
 }
 
-///Computed properties
+///Computed Properties
 extension NoteIdea {
     var formattedDate: String {
         let newDate = creationDate.formatted(
@@ -30,7 +30,7 @@ extension NoteIdea {
 
 /// Test Note Data
 extension NoteIdea {
-    static public let testNote = NoteIdea(id: UUID(), title: "Note1 Title", description: "Test description", symbol: "pencil", accentColor: "red", body: Note.testBodyArray, creationDate: Date())
+    static public let testNote = NoteIdea(id: UUID(), title: "Note1 Title", description: "Test description", symbol: "pencil", accentColor: "red", notes: Note.testBodyArray, creationDate: Date())
     static public let testNoteArray = [
         
             NoteIdea(id: UUID(),
@@ -38,7 +38,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
             
             NoteIdea(id: UUID(),
@@ -46,7 +46,7 @@ extension NoteIdea {
                  description: "Test long long long description Test Test Test Test Test Test Test",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
             
             NoteIdea(id: UUID(),
@@ -54,7 +54,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
         
             NoteIdea(id: UUID(),
@@ -62,7 +62,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
             
             NoteIdea(id: UUID(),
@@ -70,7 +70,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
 
             NoteIdea(id: UUID(),
@@ -78,7 +78,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
             
             NoteIdea(id: UUID(),
@@ -86,7 +86,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
             
             NoteIdea(id: UUID(),
@@ -94,7 +94,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
             
             NoteIdea(id: UUID(),
@@ -102,7 +102,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
             
             NoteIdea(id: UUID(),
@@ -110,7 +110,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
             
             NoteIdea(id: UUID(),
@@ -118,7 +118,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
             
             NoteIdea(id: UUID(),
@@ -126,7 +126,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
             
             NoteIdea(id: UUID(),
@@ -134,7 +134,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
             
             NoteIdea(id: UUID(),
@@ -142,7 +142,7 @@ extension NoteIdea {
                  description: "Test description",
                  symbol: "pencil.circle.fill",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date())
     ]
 }

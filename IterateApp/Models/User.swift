@@ -31,7 +31,7 @@ extension User {
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date()),
             
             NoteIdea(id: UUID(),
@@ -39,7 +39,7 @@ extension User {
                  description: "Test description",
                  symbol: "pen",
                  accentColor: "red",
-                 body: Note.testBodyArray,
+                 notes: Note.testBodyArray,
                  creationDate: Date())
         ])
 }

@@ -31,7 +31,7 @@ struct NewNoteView: View {
                 notePreview
                 
                 Button("Add") {
-                    viewModel.addNote(title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol)
+                    viewModel.addNoteIdea(title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol)
                     dismiss()
                 }
                 .disabled(allFieldsComplete)
@@ -49,7 +49,7 @@ struct NewNoteView: View {
 extension NewNoteView {
     var titleInput: some View {
         Section("Note Title") {
-            TextField("A new way to...", text: $viewModel.noteTitle)
+            TextField("Title...", text: $viewModel.noteTitle)
                 .multilineTextAlignment(.leading)
         }
     }
@@ -59,7 +59,7 @@ extension NewNoteView {
 extension NewNoteView {
     var goalInput: some View {
         Section("Description") {
-            TextField("The goal of this is...", text: $viewModel.noteDescription)
+            TextField("A new way to...", text: $viewModel.noteDescription)
                 .multilineTextAlignment(.leading)
         }
     }
@@ -88,7 +88,7 @@ extension NewNoteView {
 extension NewNoteView {
     var notePreview: some View {
         Section("Preview") {
-            NoteCellView(note: Note(id: UUID(), title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol, accentColor: viewModel.noteColor, body: "", creationDate: Date.now))
+            NoteCellView(note: NoteIdea(id: UUID(), title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol, accentColor: viewModel.noteColor, notes: [], creationDate: Date.now))
         }
     }
 }

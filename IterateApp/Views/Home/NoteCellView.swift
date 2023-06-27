@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NoteCellView: View {
-    let note: Note
+    let note: NoteIdea
     
     var body: some View {
         
@@ -48,7 +48,7 @@ struct NoteCellView: View {
 
 struct NoteItemView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteCellView(note: Note.testNote)
+        NoteCellView(note: NoteIdea.testNote)
             .preferredColorScheme(.dark)
     }
 }

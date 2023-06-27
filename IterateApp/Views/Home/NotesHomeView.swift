@@ -20,7 +20,7 @@ struct NotesHomeView: View {
                         NoteCellView(note: note)
                     }
                 }
-                .onDelete(perform: viewModel.deleteNote)
+                .onDelete(perform: viewModel.deleteNoteIdea)
                 .refreshable {
                     viewModel.refreshData()
                 }

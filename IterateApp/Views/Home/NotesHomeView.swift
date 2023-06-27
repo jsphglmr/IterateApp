@@ -21,7 +21,6 @@ struct NotesHomeView: View {
                     }
                 }
                 .onDelete(perform: viewModel.deleteNote)
-                
                 .refreshable {
                     viewModel.refreshData()
                 }

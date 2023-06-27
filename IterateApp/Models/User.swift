@@ -13,7 +13,7 @@ struct User: Codable, Identifiable, Equatable {
     var email: String
     var registered: Date
     var tags: [String]
-    var notes: [Note]
+    var notes: [NoteIdea]
 }
 
 ///Test User
@@ -26,20 +26,20 @@ extension User {
         registered: Date(),
         tags: ["tag1", "tag2", "tag3"],
         notes: [
-            Note(id: UUID(),
+            NoteIdea(id: UUID(),
                  title: "Note1 Title",
                  description: "Test description",
                  symbol: "pencil",
                  accentColor: "red",
-                 body: NoteBody.testNoteBodies,
+                 body: Note.testBodyArray,
                  creationDate: Date()),
             
-            Note(id: UUID(),
+            NoteIdea(id: UUID(),
                  title: "Note2 Title",
                  description: "Test description",
                  symbol: "pen",
                  accentColor: "red",
-                 body: NoteBody.testNoteBodies,
+                 body: Note.testBodyArray,
                  creationDate: Date())
         ])
 }

@@ -1,148 +1,26 @@
 //
-//  Note.swift
+//  NoteBody.swift
 //  IterateApp
 //
-//  Created by Joseph Gilmore on 6/2/23.
+//  Created by Joseph Gilmore on 6/21/23.
 //
 
 import Foundation
 
 struct Note: Codable, Identifiable, Equatable {
     var id: UUID
-    var title: String
-    var description: String
-    var symbol: String
-    var accentColor: String
-    var body: [NoteBody]
-    var creationDate: Date
+    var body: String
+    var date: Date
 }
 
-///Computed properties
+///Test Note Bodies
 extension Note {
-    var formattedDate: String {
-        let newDate = creationDate.formatted(
-            .dateTime
-                .month(.abbreviated).day(.defaultDigits).year(.twoDigits)
-                .hour(.defaultDigits(amPM: .abbreviated)))
-        return newDate
-    }
-}
-
-/// Test Note Data
-extension Note {
-    static public let testNote = Note(id: UUID(), title: "Note1 Title", description: "Test description", symbol: "pencil", accentColor: "red", body: NoteBody.testNoteBodies, creationDate: Date())
-    static public let testNoteArray = [
-        
-            Note(id: UUID(),
-                 title: "Note1 Title",
-                 description: "Test description",
-                 symbol: "pencil",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-            
-            Note(id: UUID(),
-                 title: "Note2 Long Title Test Test Test Test Test Test Test",
-                 description: "Test long long long description Test Test Test Test Test Test Test",
-                 symbol: "pencil.circle.fill",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-            
-            Note(id: UUID(),
-                 title: "Note3 Title",
-                 description: "Test description",
-                 symbol: "pencil",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-        
-            Note(id: UUID(),
-                 title: "Note4 Title",
-                 description: "Test description",
-                 symbol: "pencil.circle.fill",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-            
-            Note(id: UUID(),
-                 title: "Note5 Title",
-                 description: "Test description",
-                 symbol: "pencil",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-
-            Note(id: UUID(),
-                 title: "Note6 Title",
-                 description: "Test description",
-                 symbol: "pencil.circle.fill",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-            
-            Note(id: UUID(),
-                 title: "Note7 Title",
-                 description: "Test description",
-                 symbol: "pencil",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-            
-            Note(id: UUID(),
-                 title: "Note8 Title",
-                 description: "Test description",
-                 symbol: "pencil.circle.fill",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-            
-            Note(id: UUID(),
-                 title: "Note9 Title",
-                 description: "Test description",
-                 symbol: "pencil",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-            
-            Note(id: UUID(),
-                 title: "Note10 Title",
-                 description: "Test description",
-                 symbol: "pencil.circle.fill",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-            
-            Note(id: UUID(),
-                 title: "Note11 Title",
-                 description: "Test description",
-                 symbol: "pencil",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-            
-            Note(id: UUID(),
-                 title: "Note12 Title",
-                 description: "Test description",
-                 symbol: "pencil.circle.fill",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-            
-            Note(id: UUID(),
-                 title: "Note13 Title",
-                 description: "Test description",
-                 symbol: "pencil",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date()),
-            
-            Note(id: UUID(),
-                 title: "Note14 Title",
-                 description: "Test description",
-                 symbol: "pencil.circle.fill",
-                 accentColor: "red",
-                 body: NoteBody.testNoteBodies,
-                 creationDate: Date())
+    static public let testBody = Note(id: UUID(), body: "Test body", date: Date.now)
+    static public let testBodyArray = [
+        Note(id: UUID(), body: "Test body1", date: Date.now),
+        Note(id: UUID(), body: "Test body2", date: Date.now),
+        Note(id: UUID(), body: "Test body3", date: Date.now),
+        Note(id: UUID(), body: "Test body4", date: Date.now),
+        Note(id: UUID(), body: "Test body5", date: Date.now)
     ]
 }

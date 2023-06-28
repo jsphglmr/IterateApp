@@ -39,6 +39,10 @@ struct NoteCellView: View {
         .frame(height: 150)
         .frame(maxWidth: .infinity)
         .background(.white.opacity(0.1))
+        .background(LinearGradient(colors: [
+            Color(colorName: note.accentColor)!.opacity(0.5),
+            Color(colorName: note.accentColor)!.opacity(0.1)
+        ], startPoint: .topLeading, endPoint: .bottom))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(colorName: note.accentColor)!))
         .padding(.horizontal, 15)

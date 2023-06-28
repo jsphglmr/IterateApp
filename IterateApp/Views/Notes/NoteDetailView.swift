@@ -10,7 +10,7 @@ import SwiftUI
 struct NoteDetailView: View {
     @StateObject private var viewModel = NoteViewModel()
     
-    let note: NoteIdea
+    var note: NoteIdea
     
     var body: some View {
         NavigationView {
@@ -29,12 +29,20 @@ struct NoteDetailView: View {
                 }
                 
                 Section {
-                    VStack {
+                    HStack {
                         TextField("New Note Textfield", text: $viewModel.newIteration.body, prompt: Text("New Iteration..."), axis: .vertical)
                             .onSubmit {
                                 let iteration = Note(id: UUID(), body: viewModel.newIteration.body, creationDate: Date.now)
+                                
                                 viewModel.updateNoteIdea(note: note)
                             }
+                        Button {
+                            // ‼️ add iteration to array
+                        } label: {
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundColor(Color(colorName: note.accentColor))
+                        }
+
                     }
                 } footer: {
                     VStack(alignment: .trailing) {

@@ -26,28 +26,27 @@ struct NotesHomeView: View {
                 }
             }
             .navigationTitle("Iterate")
-            .toolbar {
+            .overlay(alignment: .bottomLeading) {
+                Button {
+                    viewModel.showingNewNoteView.toggle()
+                } label: {
+                    Text("New Note")
+                    Image(systemName: "plus.circle.fill")
+                }
+                .frame(height: 65)
+                .frame(width: 200)
+                .background(.thinMaterial)
+                .shadow(color: .white.opacity(0.3), radius: 6)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .padding(.horizontal, 45)
+                .padding(.bottom, 20)
+                .font(.title2)
+                .bold()
                 
-                ToolbarItem(placement: .automatic) {
-                    Button {
-                        viewModel.showingNewNoteView = true
-                    } label: {
-                        HStack {
-                            Text("New Note")
-                                .font(.title3)
-                            Image(systemName: "plus.circle.fill")
-                                .font(.title3)
-                        }
-                        .bold()
-                        .buttonStyle(.borderedProminent)
-
-                        .sheet(isPresented: $viewModel.showingNewNoteView) {
-                            viewModel.refreshData()
-                        } content: {
-                            NewNoteView()
-                        }
-                        .padding(.bottom)
-                    }
+                .sheet(isPresented: $viewModel.showingNewNoteView) {
+                    viewModel.refreshData()
+                } content: {
+                    NewNoteView()
                 }
             }
         }

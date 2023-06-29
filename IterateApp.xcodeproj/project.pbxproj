@@ -133,8 +133,8 @@
 		C7B164BD2A2E787C001E2DEE /* Notes */ = {
 			isa = PBXGroup;
 			children = (
-				C76E023F2A19EA1D00E729D0 /* NoteDetailView.swift */,
 				C76E024F2A1BD59B00E729D0 /* NewNoteView.swift */,
+				C76E023F2A19EA1D00E729D0 /* NoteDetailView.swift */,
 			);
 			path = Notes;
 			sourceTree = "<group>";

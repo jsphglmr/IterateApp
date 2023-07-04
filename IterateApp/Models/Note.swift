@@ -18,8 +18,8 @@ extension Note {
     var formattedDate: String {
         let newDate = creationDate.formatted(
             .dateTime
-                .month(.abbreviated).day(.defaultDigits).year(.twoDigits)
-                .hour(.defaultDigits(amPM: .abbreviated)))
+                .month(.wide).day(.defaultDigits).year(.defaultDigits)
+        )
         return newDate
     }
 }

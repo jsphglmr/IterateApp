@@ -45,7 +45,6 @@ struct NoteCellView: View {
         ], startPoint: .topLeading, endPoint: .bottom))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(colorName: note.accentColor)!))
-        .padding(.horizontal, 15)
         .padding(.vertical, 10)
     }
 }

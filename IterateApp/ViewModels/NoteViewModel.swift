@@ -10,28 +10,34 @@ import SwiftUI
 @MainActor class NoteViewModel: ObservableObject {
     
     @Published var showingNewNoteView = false
-    @Published var notes: [Note] = []
-    @Published var selectedNote: Note?
+    @Published var notes: [NoteIdea] = []
     
-    ///New Notes
+    ///Current Selections
+    @Published var selectedNote: NoteIdea?
+    @Published var selectedIteration: Note?
+    
+    ///New Note Idea
     @Published var noteTitle = ""
     @Published var noteDescription = ""
     @Published var noteTag = "Education"
     @Published var symbol = "pencil"
     @Published var noteColor = "red"
     
-    let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedNotes")
+    ///New Iterations
+    @Published var newIteration = Note(body: "", creationDate: Date.now)
+    
+    private let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedNotes")
     
     init() {
         do {
             let data = try Data(contentsOf: savePath)
-            notes = try JSONDecoder().decode([Note].self, from: data)
+            notes = try JSONDecoder().decode([NoteIdea].self, from: data)
         } catch {
             notes = []
         }
     }
     //MARK: - FileManager CRUD
-    func save() {
+    private func save() {
         do {
             let data = try JSONEncoder().encode(notes)
             try data.write(to: savePath, options: [.atomicWrite, .completeFileProtection])
@@ -43,20 +49,20 @@ import SwiftUI
     func refreshData() {
         do {
             let data = try Data(contentsOf: savePath)
-            notes = try JSONDecoder().decode([Note].self, from: data)
+            notes = try JSONDecoder().decode([NoteIdea].self, from: data)
         } catch {
             notes = []
         }
     }
     
     //MARK: - Note CRUD
-    func addNote(title: String, description: String, symbol: String) {
-        let newNote = Note(id: UUID(), title: title, description: description, symbol: symbol, accentColor: noteColor, body: "", creationDate: Date.now)
+    func addNoteIdea(title: String, description: String, symbol: String) {
+        let newNote = NoteIdea(title: title, description: description, symbol: symbol, accentColor: noteColor, notes: [], creationDate: Date.now)
         notes.append(newNote)
         save()
     }
     
-    func update(note: Note) {
+    func updateNoteIdea(note: NoteIdea) {
         guard let selectedNote = selectedNote else { return }
         if let index = notes.firstIndex(of: selectedNote) {
             notes[index] = note
@@ -64,11 +70,38 @@ import SwiftUI
         }
     }
     
-    func deleteNote(at offsets: IndexSet) {
+    //delete entire note
+    func deleteNoteIdea(at offsets: IndexSet) {
         for offset in offsets {
             notes.remove(at: offset)
             save()
         }
+    }
+    
+    //MARK: - Iteration CRUD
+    
+    //add iteration
+    func addIteration(noteIdea: NoteIdea) {
+        var currentNote = noteIdea
+        currentNote.notes.append(newIteration)
+        guard let index = notes.firstIndex(of: noteIdea) else { return }
+        notes[index] = currentNote
+        save()
+        print(notes)
+        print(currentNote)
+    }
+    
+    //update specific iteration
+    func updateIteration(note: Note) {
+//        guard let selectedIteration = selectedIteration else { return }
+//
+//        save()
+    }
+    
+    //remove specific iteration
+    func removeIteration() {
+        
+        save()
     }
 }
 

@@ -32,11 +32,9 @@ struct NoteDetailView: View {
                         TextField("New Note Textfield", text: $viewModel.newIteration.body, prompt: Text("New Iteration..."), axis: .vertical)
                             .onSubmit {
                                 //MARK: - add to notes array
-                                let newIteration = viewModel.newIteration
-                                //viewModel.addIteration(note: newIteration)
-                                
-                                print("iteration added")
-                                print(note)
+                                viewModel.addIteration(noteIdea: note)
+                                viewModel.newIteration = Note(body: "")
+                                viewModel.objectWillChange.send()
                             }
                         Button {
                             // ‼️ add iteration to array
@@ -69,9 +67,9 @@ struct NoteDetailView: View {
                     } label: {
                         Label("Edit", systemImage: "ellipsis.circle.fill")
                             .font(.title2)
-                            .shadow(color: .blue.opacity(1), radius: 20)
+                            .foregroundColor(Color(colorName: note.accentColor))
+                            .shadow(color: .white.opacity(1), radius: 20)
                     }
-
                 }
             }
         }

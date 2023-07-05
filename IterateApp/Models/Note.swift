@@ -8,9 +8,9 @@
 import Foundation
 
 struct Note: Codable, Identifiable, Equatable {
-    var id: UUID
+    var id = UUID()
     var body: String
-    var creationDate: Date
+    var creationDate = Date.now
 }
 
 ///Computed Properties

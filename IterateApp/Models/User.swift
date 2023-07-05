@@ -8,7 +8,7 @@
 import Foundation
 
 struct User: Codable, Identifiable, Equatable {
-    var id: UUID
+    var id = UUID()
     var name: String
     var email: String
     var registered: Date

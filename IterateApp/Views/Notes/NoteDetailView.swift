@@ -14,7 +14,6 @@ struct NoteDetailView: View {
     
     var body: some View {
         NavigationView {
-            
             Form {
                 Section {
                     VStack(alignment: .leading) {
@@ -32,9 +31,12 @@ struct NoteDetailView: View {
                     HStack {
                         TextField("New Note Textfield", text: $viewModel.newIteration.body, prompt: Text("New Iteration..."), axis: .vertical)
                             .onSubmit {
-                                let iteration = Note(id: UUID(), body: viewModel.newIteration.body, creationDate: Date.now)
+                                //MARK: - add to notes array
+                                let newIteration = viewModel.newIteration
+                                //viewModel.addIteration(note: newIteration)
                                 
-                                viewModel.updateNoteIdea(note: note)
+                                print("iteration added")
+                                print(note)
                             }
                         Button {
                             // ‼️ add iteration to array
@@ -42,7 +44,6 @@ struct NoteDetailView: View {
                             Image(systemName: "plus.circle.fill")
                                 .foregroundColor(Color(colorName: note.accentColor))
                         }
-
                     }
                 } footer: {
                     VStack(alignment: .trailing) {
@@ -61,12 +62,21 @@ struct NoteDetailView: View {
                     }
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .automatic) {
+                    Button {
+                        //edit
+                    } label: {
+                        Label("Edit", systemImage: "ellipsis.circle.fill")
+                            .font(.title2)
+                            .shadow(color: .blue.opacity(1), radius: 20)
+                    }
+
+                }
+            }
         }
     }
 }
-
-
-
 
 struct NoteView_Previews: PreviewProvider {
     static var previews: some View {

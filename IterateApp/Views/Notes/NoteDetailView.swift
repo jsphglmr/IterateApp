@@ -14,7 +14,7 @@ struct NoteDetailView: View {
     
     var body: some View {
         NavigationView {
-            Form {
+            List {
                 Section {
                     VStack(alignment: .leading) {
                         Text(note.title)
@@ -35,6 +35,8 @@ struct NoteDetailView: View {
                                 viewModel.addIteration(noteIdea: note)
                                 viewModel.newIteration = Note(body: "")
                                 viewModel.objectWillChange.send()
+                                print(note.notes)
+                                print(viewModel.notes)
                             }
                         Button {
                             // ‼️ add iteration to array
@@ -58,6 +60,9 @@ struct NoteDetailView: View {
                     } footer: {
                         Text(iteration.formattedDate)
                     }
+                }
+                .onDelete { indexSet in
+                    viewModel.deleteIteration(noteIdea: note, at: indexSet)
                 }
             }
             .toolbar {

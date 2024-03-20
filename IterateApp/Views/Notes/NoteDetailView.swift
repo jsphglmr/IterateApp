@@ -8,71 +8,70 @@
 import SwiftUI
 
 struct NoteDetailView: View {
-    @StateObject private var viewModel = NoteViewModel()
+    @ObservedObject var viewModel = NoteViewModel()
     
-    var note: NoteIdea
+    @State var goal: Goal
+    
+    @State var newIterationBody: String = ""
     
     var body: some View {
         NavigationView {
             List {
                 Section {
                     VStack(alignment: .leading) {
-                        Text(note.title)
+                        Text(goal.title)
                             .font(.title2)
-                            .foregroundColor(Color(colorName: note.accentColor))
+                            .foregroundColor(Color(colorName: goal.accentColor))
                             .bold()
                         Divider()
-                        Text(note.description)
+                        Text(goal.description)
                             .font(.title3)
                     }
                 }
                 
                 Section {
-                    HStack {
-                        TextField("New Note Textfield", text: $viewModel.newIteration.body, prompt: Text("New Iteration..."), axis: .vertical)
-                            .onSubmit {
-                                //MARK: - add to notes array
-                                viewModel.addIteration(noteIdea: note)
-                                viewModel.newIteration = Note(body: "")
-                                viewModel.objectWillChange.send()
-                                print(note.notes)
-                                print(viewModel.notes)
-                            }
-                        Button {
-                            // ‼️ add iteration to array
-                        } label: {
-                            Image(systemName: "plus.circle.fill")
-                                .foregroundColor(Color(colorName: note.accentColor))
+                    TextField("New Note", text: $newIterationBody, prompt: Text("hello"))
+                    
+                        .onSubmit {
+                            //MARK: - add to notes array
+                            let newNote = Note(body: newIterationBody)
+                            viewModel.addNote(newNote, to: goal)
+                            goal.notes.insert(newNote, at: 0)
+                            newIterationBody = ""
+                            print(viewModel.goals)
                         }
-                    }
                 } footer: {
                     VStack(alignment: .trailing) {
-                        Text("Characters: \(viewModel.newIteration.body.count)/280")
+                        Text("Characters: \(newIterationBody.count)/280")
                             .foregroundColor(.secondary)
                     }
                 }
                 
-                ForEach(note.notes) { iteration in
+                ForEach(goal.notes) { note in
                     Section {
                         VStack(alignment: .leading){
-                            Text(iteration.body)
+                            Text(note.body)
                         }
                     } footer: {
-                        Text(iteration.formattedDate)
+                        Text(note.formattedDate)
                     }
                 }
                 .onDelete { indexSet in
-                    viewModel.deleteIteration(noteIdea: note, at: indexSet)
+                    viewModel.removeIteration(noteIdea: goal, at: indexSet)
+                }
+                .refreshable {
+                    viewModel.refreshData()
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .automatic) {
                     Button {
-                        //edit
+                        // ‼️ TODO -- add button functionality
+                        viewModel.refreshData()
                     } label: {
                         Label("Edit", systemImage: "ellipsis.circle.fill")
                             .font(.title2)
-                            .foregroundColor(Color(colorName: note.accentColor))
+                            .foregroundColor(Color(colorName: goal.accentColor))
                             .shadow(color: .white.opacity(1), radius: 20)
                     }
                 }
@@ -83,7 +82,7 @@ struct NoteDetailView: View {
 
 struct NoteView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteDetailView(note: NoteIdea.testNoteArray[1])
+        NoteDetailView(goal: Goal.testNoteArray[1])
             .preferredColorScheme(.dark)
         
     }

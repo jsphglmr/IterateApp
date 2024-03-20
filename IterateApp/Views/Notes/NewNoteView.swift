@@ -88,7 +88,7 @@ extension NewNoteView {
 extension NewNoteView {
     var notePreview: some View {
         Section("Preview") {
-            NoteCellView(note: NoteIdea(id: UUID(), title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol, accentColor: viewModel.noteColor, notes: [], creationDate: Date.now))
+            NoteCellView(goal: Goal(id: UUID(), title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol, accentColor: viewModel.noteColor, notes: [], creationDate: Date.now))
         }
     }
 }

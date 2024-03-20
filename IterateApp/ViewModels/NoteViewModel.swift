@@ -9,12 +9,10 @@ import SwiftUI
 
 @MainActor class NoteViewModel: ObservableObject {
     
-    @Published var showingNewNoteView = false
-    @Published var notes: [NoteIdea] = []
+    @Published var goals: [Goal] = []
     
     ///Current Selections
-    @Published var selectedNote: NoteIdea?
-    @Published var selectedIteration: Note?
+    @Published var selectedGoal: Goal?
     
     ///New Note Idea
     @Published var noteTitle = ""
@@ -23,23 +21,25 @@ import SwiftUI
     @Published var symbol = "pencil"
     @Published var noteColor = "red"
     
-    ///New Iterations
-    @Published var newIteration = Note(body: "", creationDate: Date.now)
-    
     private let savePath = FileManager.documentsDirectory.appendingPathComponent("SavedNotes")
     
     init() {
         do {
             let data = try Data(contentsOf: savePath)
-            notes = try JSONDecoder().decode([NoteIdea].self, from: data)
+            goals = try JSONDecoder().decode([Goal].self, from: data)
         } catch {
-            notes = []
+            if goals.isEmpty {
+                goals = []
+            } else {
+                return
+            }
         }
     }
+    
     //MARK: - FileManager CRUD
     private func save() {
         do {
-            let data = try JSONEncoder().encode(notes)
+            let data = try JSONEncoder().encode(goals)
             try data.write(to: savePath, options: [.atomicWrite, .completeFileProtection])
         } catch {
             print("Unable to save data")
@@ -49,23 +49,27 @@ import SwiftUI
     func refreshData() {
         do {
             let data = try Data(contentsOf: savePath)
-            notes = try JSONDecoder().decode([NoteIdea].self, from: data)
+            goals = try JSONDecoder().decode([Goal].self, from: data)
         } catch {
-            notes = []
+            if goals.isEmpty {
+                goals = []
+            } else {
+                return
+            }
         }
     }
     
     //MARK: - Note CRUD
     func addNoteIdea(title: String, description: String, symbol: String) {
-        let newNote = NoteIdea(title: title, description: description, symbol: symbol, accentColor: noteColor, notes: [], creationDate: Date.now)
-        notes.append(newNote)
+        let newNote = Goal(title: title, description: description, symbol: symbol, accentColor: noteColor, notes: [], creationDate: Date.now)
+        goals.append(newNote)
         save()
     }
     
-    func updateNoteIdea(note: NoteIdea) {
-        guard let selectedNote = selectedNote else { return }
-        if let index = notes.firstIndex(of: selectedNote) {
-            notes[index] = note
+    func updateNoteIdea(note: Goal) {
+        guard let selectedNote = selectedGoal else { return }
+        if let index = goals.firstIndex(of: selectedNote) {
+            goals[index] = note
             save()
         }
     }
@@ -73,7 +77,7 @@ import SwiftUI
     //delete entire note
     func deleteNoteIdea(at offsets: IndexSet) {
         for offset in offsets {
-            notes.remove(at: offset)
+            goals.remove(at: offset)
             save()
         }
     }
@@ -81,14 +85,20 @@ import SwiftUI
     //MARK: - Iteration CRUD
     
     //add iteration
-    func addIteration(noteIdea: NoteIdea) {
+    func addIteration(noteIdea: Goal) {
         var currentNote = noteIdea
-        currentNote.notes.append(newIteration)
-        guard let index = notes.firstIndex(of: noteIdea) else { return }
-        notes[index] = currentNote
+//        currentNote.notes.append(newIteration)
+        guard let index = goals.firstIndex(of: noteIdea) else { return }
+        goals[index] = currentNote
         save()
-        print(notes)
-        print(currentNote)
+    }
+    
+    func addNote(_ note: Note, to goal: Goal) {
+        guard let index = goals.firstIndex(of: goal) else { return }
+        var updatedGoal = goals[index]
+        updatedGoal.notes.insert(note, at: 0)
+        goals[index] = updatedGoal
+        save()
     }
     
     //update specific iteration
@@ -99,9 +109,12 @@ import SwiftUI
     }
     
     //remove specific iteration
-    func removeIteration() {
-        
-        save()
+    func removeIteration(noteIdea: Goal, at offsets: IndexSet) {
+        var currentNote = noteIdea
+        for offset in offsets {
+            currentNote.notes.remove(at: offset)
+            save()
+        }
     }
 }
 

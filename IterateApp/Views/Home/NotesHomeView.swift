@@ -8,16 +8,23 @@
 import SwiftUI
 
 struct NotesHomeView: View {
-    @ObservedObject var viewModel = NoteViewModel()
+    @ObservedObject var viewModel: NoteViewModel
+    @State var showingNewNoteView = false
+    @State var goals: [Goal]
+    
+    init(viewModel: NoteViewModel) {
+        self.viewModel = viewModel
+        self.goals = viewModel.goals
+    }
     
     var body: some View {
         NavigationStack {
             List {
-                ForEach(viewModel.notes, id: \.id) { note in
+                ForEach(goals, id: \.id) { goal in
                     NavigationLink {
-                        NoteDetailView(note: note)
+                        NoteDetailView(goal: goal)
                     } label: {
-                        NoteCellView(note: note)
+                        NoteCellView(goal: goal)
                     }
                 }
                 .onDelete(perform: viewModel.deleteNoteIdea)
@@ -28,7 +35,7 @@ struct NotesHomeView: View {
             .navigationTitle("Iterate")
             .overlay(alignment: .bottomLeading) {
                 Button {
-                    viewModel.showingNewNoteView.toggle()
+                    showingNewNoteView.toggle()
                 } label: {
                     Text("New Note")
                     Image(systemName: "plus.circle.fill")
@@ -46,19 +53,23 @@ struct NotesHomeView: View {
                 .font(.title2)
                 .bold()
                 
-                .sheet(isPresented: $viewModel.showingNewNoteView) {
+                .sheet(isPresented: $showingNewNoteView) {
                     viewModel.refreshData()
                 } content: {
                     NewNoteView()
                 }
             }
         }
+        .onChange(of: viewModel.goals) { goals in
+            self.goals = goals
+            print(goals.count)
+        }
     }
 }
 
 struct NotesHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        NotesHomeView()
+        NotesHomeView(viewModel: NoteViewModel())
             .preferredColorScheme(.dark)
     }
 }

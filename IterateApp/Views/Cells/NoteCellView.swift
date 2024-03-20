@@ -8,29 +8,29 @@
 import SwiftUI
 
 struct NoteCellView: View {
-    let note: NoteIdea
+    let goal: Goal
     
     var body: some View {
         
         HStack(alignment: .center) {
-            Image(systemName: note.symbol)
+            Image(systemName: goal.symbol)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 45, height: 45)
                 .padding(.horizontal, 15)
-                .foregroundColor(Color(colorName: note.accentColor))
+                .foregroundColor(Color(colorName: goal.accentColor))
             
             VStack(alignment: .leading) {
-                Text(note.title)
+                Text(goal.title)
                     .font(.title2)
                     .bold()
                     .scaledToFit()
-                    .foregroundColor(Color(colorName: note.accentColor))
+                    .foregroundColor(Color(colorName: goal.accentColor))
                 
-                Text(note.description)
+                Text(goal.description)
                     .padding(.vertical, 3)
                 
-                Text("Last edit: \(note.formattedDate)")
+                Text("Last edit: \(goal.formattedDate)")
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.5))
             }
@@ -40,18 +40,18 @@ struct NoteCellView: View {
         .frame(maxWidth: .infinity)
         .background(.white.opacity(0.1))
         .background(LinearGradient(colors: [
-            Color(colorName: note.accentColor)!.opacity(0.5),
-            Color(colorName: note.accentColor)!.opacity(0.1)
+            Color(colorName: goal.accentColor)!.opacity(0.5),
+            Color(colorName: goal.accentColor)!.opacity(0.1)
         ], startPoint: .topLeading, endPoint: .bottom))
         .clipShape(RoundedRectangle(cornerRadius: 10))
-        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(colorName: note.accentColor)!))
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color(colorName: goal.accentColor)!))
         .padding(.vertical, 10)
     }
 }
 
 struct NoteItemView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteCellView(note: NoteIdea.testNote)
+        NoteCellView(goal: Goal.testNote)
             .preferredColorScheme(.dark)
     }
 }

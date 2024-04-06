@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NoteDetailView: View {
-    @ObservedObject var viewModel = NoteViewModel()
+    @StateObject var viewModel = NoteViewModel()
     
     @State var goal: Goal
     

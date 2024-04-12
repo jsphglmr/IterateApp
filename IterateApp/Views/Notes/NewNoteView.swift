@@ -6,16 +6,22 @@
 //
 
 import SwiftUI
+import SwiftData
 import SymbolPicker
 
 struct NewNoteView: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel = NoteViewModel()
-    
+    @Environment(\.modelContext) private var modelContext
+
+    @State private var noteTitle = ""
+    @State private var noteInfo = ""
+    @State private var noteTag = "Education"
+    @State private var symbol = "pencil"
+    @State private var noteColor = "red"
     @State private var iconPickerPresented = false
     
     var allFieldsComplete: Bool {
-        viewModel.noteTitle.isEmpty || viewModel.noteDescription.isEmpty || viewModel.noteColor.isEmpty
+        noteTitle.isEmpty || noteInfo.isEmpty || noteColor.isEmpty
     }
     
     let colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"]
@@ -31,7 +37,17 @@ struct NewNoteView: View {
                 notePreview
                 
                 Button("Add") {
-                    viewModel.addNoteIdea(title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol)
+
+                    modelContext.insert(
+                        Goal(
+                            title: noteTitle,
+                            description: noteInfo,
+                            symbol: symbol,
+                            accentColor: noteColor,
+                            notes: [],
+                            creationDate: Date.now
+                        )
+                    )
                     dismiss()
                 }
                 .disabled(allFieldsComplete)
@@ -43,13 +59,14 @@ struct NewNoteView: View {
             }
         }
     }
+    
 }
 
 ///Title View
 extension NewNoteView {
     var titleInput: some View {
         Section("Note Title") {
-            TextField("Title...", text: $viewModel.noteTitle)
+            TextField("Title...", text: $noteTitle)
                 .multilineTextAlignment(.leading)
         }
     }
@@ -59,7 +76,7 @@ extension NewNoteView {
 extension NewNoteView {
     var goalInput: some View {
         Section("Description") {
-            TextField("A new way to...", text: $viewModel.noteDescription)
+            TextField("A new way to...", text: $noteInfo)
                 .multilineTextAlignment(.leading)
         }
     }
@@ -73,12 +90,12 @@ extension NewNoteView {
                 iconPickerPresented = true
             } label: {
                 HStack {
-                    Image(systemName: viewModel.symbol)
-                    Text(viewModel.symbol)
+                    Image(systemName: symbol)
+                    Text(symbol)
                 }
             }
             .sheet(isPresented: $iconPickerPresented) {
-                SymbolPicker(symbol: $viewModel.symbol)
+                SymbolPicker(symbol: $symbol)
             }
         }
     }
@@ -88,7 +105,7 @@ extension NewNoteView {
 extension NewNoteView {
     var notePreview: some View {
         Section("Preview") {
-            NoteCellView(goal: Goal(id: UUID(), title: viewModel.noteTitle, description: viewModel.noteDescription, symbol: viewModel.symbol, accentColor: viewModel.noteColor, notes: [], creationDate: Date.now))
+            NoteCellView(goal: Goal(id: UUID(), title: noteTitle, description: noteInfo, symbol: symbol, accentColor: noteColor, notes: [], creationDate: Date.now))
         }
     }
 }
@@ -101,7 +118,7 @@ extension NewNoteView {
                 HStack(spacing: 20) {
                     ForEach(colors, id: \.self) { color in
                         Button {
-                            viewModel.noteColor = color
+                            noteColor = color
                         } label: {
                             Circle()
                                 .frame(width: 40)

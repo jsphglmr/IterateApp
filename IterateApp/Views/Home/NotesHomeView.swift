@@ -6,16 +6,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NotesHomeView: View {
-    @ObservedObject var viewModel: NoteViewModel
+    @Environment(\.modelContext) private var modelContext
     @State var showingNewNoteView = false
-    @State var goals: [Goal]
-    
-    init(viewModel: NoteViewModel) {
-        self.viewModel = viewModel
-        self.goals = viewModel.goals
-    }
+    @Query var goals: [Goal] = []
     
     var body: some View {
         NavigationStack {
@@ -27,10 +23,7 @@ struct NotesHomeView: View {
                         NoteCellView(goal: goal)
                     }
                 }
-                .onDelete(perform: viewModel.deleteNoteIdea)
-                .refreshable {
-                    viewModel.refreshData()
-                }
+                .onDelete(perform: deleteGoalIdea)
             }
             .navigationTitle("Iterate")
             .overlay(alignment: .bottomLeading) {
@@ -54,22 +47,22 @@ struct NotesHomeView: View {
                 .bold()
                 
                 .sheet(isPresented: $showingNewNoteView) {
-                    viewModel.refreshData()
-                } content: {
                     NewNoteView()
                 }
             }
         }
-        .onChange(of: viewModel.goals) { goals in
-            self.goals = goals
-            print(goals.count)
+    }
+    
+    func deleteGoalIdea(at offsets: IndexSet) {
+        for index in offsets {
+            modelContext.delete(goals[index])
         }
     }
 }
 
 struct NotesHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        NotesHomeView(viewModel: NoteViewModel())
+        NotesHomeView()
             .preferredColorScheme(.dark)
     }
 }

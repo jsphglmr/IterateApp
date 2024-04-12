@@ -27,7 +27,7 @@ struct NoteCellView: View {
                     .scaledToFit()
                     .foregroundColor(Color(colorName: goal.accentColor))
                 
-                Text(goal.description)
+                Text(goal.info)
                     .padding(.vertical, 3)
                 
                 Text("Last edit: \(goal.formattedDate)")
@@ -51,7 +51,7 @@ struct NoteCellView: View {
 
 struct NoteItemView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteCellView(goal: Goal.testNote)
+        NoteCellView(goal: Goal(title: "test", description: "test123", symbol: "pencil", accentColor: "red", notes: [Note(body: "test body")], creationDate: .now))
             .preferredColorScheme(.dark)
     }
 }

@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NoteDetailView: View {
-    @StateObject var viewModel = NoteViewModel()
     
-    @State var goal: Goal
+    var goal: Goal
     
     @State var newIterationBody: String = ""
     
@@ -24,7 +24,7 @@ struct NoteDetailView: View {
                             .foregroundColor(Color(colorName: goal.accentColor))
                             .bold()
                         Divider()
-                        Text(goal.description)
+                        Text(goal.info)
                             .font(.title3)
                     }
                 }
@@ -34,11 +34,6 @@ struct NoteDetailView: View {
                     
                         .onSubmit {
                             //MARK: - add to notes array
-                            let newNote = Note(body: newIterationBody)
-                            viewModel.addNote(newNote, to: goal)
-                            goal.notes.insert(newNote, at: 0)
-                            newIterationBody = ""
-                            print(viewModel.goals)
                         }
                 } footer: {
                     VStack(alignment: .trailing) {
@@ -47,27 +42,27 @@ struct NoteDetailView: View {
                     }
                 }
                 
-                ForEach(goal.notes) { note in
-                    Section {
-                        VStack(alignment: .leading){
-                            Text(note.body)
-                        }
-                    } footer: {
-                        Text(note.formattedDate)
-                    }
-                }
-                .onDelete { indexSet in
-                    viewModel.removeIteration(noteIdea: goal, at: indexSet)
-                }
-                .refreshable {
-                    viewModel.refreshData()
-                }
+//                ForEach(goal.notes) { note in
+//                    Section {
+//                        VStack(alignment: .leading){
+//                            Text(note.body)
+//                        }
+//                    } footer: {
+//                        Text(note.formattedDate)
+//                    }
+//                }
+//                .onDelete { indexSet in
+//                    viewModel.removeIteration(noteIdea: goal, at: indexSet)
+//                }
+//                .refreshable {
+//                    viewModel.refreshData()
+//                }
             }
             .toolbar {
                 ToolbarItem(placement: .automatic) {
                     Button {
-                        // ‼️ TODO -- add button functionality
-                        viewModel.refreshData()
+                        //TODO: - add button functionality
+                        
                     } label: {
                         Label("Edit", systemImage: "ellipsis.circle.fill")
                             .font(.title2)
@@ -82,7 +77,7 @@ struct NoteDetailView: View {
 
 struct NoteView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteDetailView(goal: Goal.testNoteArray[1])
+        NoteDetailView(goal: Goal(title: "test", description: "test123", symbol: "pencil", accentColor: "red", notes: [Note(body: "test body")], creationDate: .now))
             .preferredColorScheme(.dark)
         
     }

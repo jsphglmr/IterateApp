@@ -10,7 +10,8 @@ import SwiftData
 
 @main
 struct IterateAppApp: App {
-    
+    @AppStorage("isDarkMode") private var isDarkMode = false
+
     //swift data implementation
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([

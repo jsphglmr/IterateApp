@@ -9,16 +9,18 @@ import SwiftUI
 
 struct IterationBodyCellView: View {
     var note: Note
+    var color: String
     
     var body: some View {
         Section {
             VStack(alignment: .leading) {
                 Text(note.body)
-                    .font(.title3.monospaced())
+                    .font(.subheadline.monospaced())
                 HStack(alignment: .bottom, spacing: 0) {
                     Spacer()
                     Text(note.creationDate.formatted(.dateTime.day().month()))
                         .font(.caption.monospaced())
+                        .foregroundStyle(Color(colorName: color) ?? .red)
                 }
             }
         }
@@ -26,6 +28,7 @@ struct IterationBodyCellView: View {
 }
 
 #Preview {
-    IterationBodyCellView(note: Note(body: "test note body", creationDate: .now))
+    
+    IterationBodyCellView(note: Note(body: "test note body", creationDate: .now), color: "red")
         .preferredColorScheme(.dark)
 }

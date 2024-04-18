@@ -11,16 +11,16 @@ struct SettingsView: View {
     var body: some View {
         List {
             Section {
-                Button {
-                    //action
-                } label: {
-                    HStack(alignment: .center) {
-                        Image(systemName: "person")
-                        Text("About")
-                    }
-                }
-                Text("about")
-                Text("about")
+                SettingsCellView(image: "heart.fill", color: .red, title: "github", link: "github.com")
+                SettingsCellView(image: "heart", color: .blue, title: "apple", link: "apple.com")
+            }
+            
+            Section {
+                SettingsCellView(image: "brain.fill", color: .yellow, title: "google", link: "google.com")
+            }
+            
+            Section {
+                SettingsCellView(image: "brain", color: .purple, title: "Non Link Test", link: nil)
             }
         }
     }

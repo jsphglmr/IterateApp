@@ -7,77 +7,99 @@
 
 import SwiftUI
 import SwiftData
+import SymbolPicker
 
 struct NoteDetailView: View {
+    @Environment(\.modelContext) private var modelContext
     
-    var goal: Goal
+    @State var goal: Goal
+    @State private var newIterationBody: String = ""
+    @State private var iconPickerPresented = false
     
-    @State var newIterationBody: String = ""
+    let textFieldLimit = 280
     
     var body: some View {
-        NavigationView {
-            List {
-                Section {
-                    VStack(alignment: .leading) {
-                        Text(goal.title)
+        List {
+            Section {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Button {
+                            iconPickerPresented = true
+                        } label: {
+                            Image(systemName: goal.symbol)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(Color(colorName: goal.accentColor))
+                        }
+                        .sheet(isPresented: $iconPickerPresented) {
+                            SymbolPicker(symbol: $goal.symbol)
+                        }
+
+                        TextField(goal.title, text: $goal.title)
                             .font(.title2)
                             .foregroundColor(Color(colorName: goal.accentColor))
                             .bold()
-                        Divider()
-                        Text(goal.info)
-                            .font(.title3)
                     }
+                    Divider()
+                    TextField(goal.info, text: $goal.info)
+                        .font(.title3)
                 }
-                
-                Section {
-                    TextField("New Note", text: $newIterationBody, prompt: Text("hello"))
-                    
-                        .onSubmit {
-                            //MARK: - add to notes array
-                        }
-                } footer: {
-                    VStack(alignment: .trailing) {
-                        Text("Characters: \(newIterationBody.count)/280")
-                            .foregroundColor(.secondary)
-                    }
-                }
-                
-//                ForEach(goal.notes) { note in
-//                    Section {
-//                        VStack(alignment: .leading){
-//                            Text(note.body)
-//                        }
-//                    } footer: {
-//                        Text(note.formattedDate)
-//                    }
-//                }
-//                .onDelete { indexSet in
-//                    viewModel.removeIteration(noteIdea: goal, at: indexSet)
-//                }
-//                .refreshable {
-//                    viewModel.refreshData()
-//                }
             }
-            .toolbar {
-                ToolbarItem(placement: .automatic) {
-                    Button {
-                        //TODO: - add button functionality
+            
+            Section {
+                TextField("New Note", text: $newIterationBody, prompt: Text("New idea..."))
+                    .onChange(of: newIterationBody) { text, newValue in
+                        self.newIterationBody = String(text.prefix(textFieldLimit))
                         
-                    } label: {
-                        Label("Edit", systemImage: "ellipsis.circle.fill")
-                            .font(.title2)
-                            .foregroundColor(Color(colorName: goal.accentColor))
-                            .shadow(color: .white.opacity(1), radius: 20)
                     }
+                    .onSubmit {
+                        let newNote = Note(body: newIterationBody)
+                        goal.notes.append(newNote)
+                        newIterationBody = ""
+                    }
+            } footer: {
+                VStack(alignment: .trailing) {
+                    Text("Characters: \(newIterationBody.count)/280")
+                        .foregroundColor(.secondary)
                 }
             }
+            
+            Section {
+                ForEach(goal.notes) { note in
+                    IterationBodyCellView(note: note, color: goal.accentColor)
+                }
+                .onDelete { indexSet in
+                    deleteNoteIdea(at: indexSet)
+                }
+            }
+        }
+        
+        .toolbar {
+            ToolbarItem(placement: .automatic) {
+                Button {
+                    EditButton()
+                } label: {
+                    Label("Edit", systemImage: "ellipsis.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(Color(colorName: goal.accentColor))
+                        .shadow(color: .white.opacity(1), radius: 20)
+                }
+            }
+        }
+        
+    }
+    
+    func deleteNoteIdea(at offsets: IndexSet) {
+        for index in offsets {
+            modelContext.delete(goal.notes[index])
         }
     }
 }
 
 struct NoteView_Previews: PreviewProvider {
     static var previews: some View {
-        NoteDetailView(goal: Goal(title: "test", description: "test123", symbol: "pencil", accentColor: "red", notes: [Note(body: "test body")], creationDate: .now))
+        NoteDetailView(goal: Goal(title: "asdf", description: "1234", symbol: "pencil", accentColor: "red", notes: [Note(body: "test")], creationDate: .now))
             .preferredColorScheme(.dark)
         
     }

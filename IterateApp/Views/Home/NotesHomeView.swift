@@ -24,8 +24,11 @@ struct NotesHomeView: View {
                     }
                 }
                 .onDelete(perform: deleteGoalIdea)
+                .listRowSeparator(.hidden)
             }
+            .listRowSpacing(0)
             .navigationTitle("Iterate")
+            .navigationBarTitleDisplayMode(.inline)
             .overlay(alignment: .bottomLeading) {
                 Button {
                     showingNewNoteView.toggle()
@@ -48,6 +51,16 @@ struct NotesHomeView: View {
                 
                 .sheet(isPresented: $showingNewNoteView) {
                     NewNoteView()
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        SettingsView()
+                    } label: {
+                        Image(systemName: "gear")
+                            .tint(.white)
+                    }
                 }
             }
         }

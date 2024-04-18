@@ -26,6 +26,7 @@
 		C7F2788E2A2A9EE40070CFF6 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = C7F2788D2A2A9EE40070CFF6 /* KeychainAccess */; };
 		EB47C5C12BCCD9210056C0B6 /* IterationBodyCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47C5C02BCCD9210056C0B6 /* IterationBodyCellView.swift */; };
 		EB47C5C42BD162C70056C0B6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47C5C32BD162C70056C0B6 /* SettingsView.swift */; };
+		EB47C5C62BD187E60056C0B6 /* SettingsCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47C5C52BD187E60056C0B6 /* SettingsCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		C7F278872A2A9C710070CFF6 /* NoteCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCellView.swift; sourceTree = "<group>"; };
 		EB47C5C02BCCD9210056C0B6 /* IterationBodyCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IterationBodyCellView.swift; sourceTree = "<group>"; };
 		EB47C5C32BD162C70056C0B6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		EB47C5C52BD187E60056C0B6 /* SettingsCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 			children = (
 				C7F278872A2A9C710070CFF6 /* NoteCellView.swift */,
 				EB47C5C02BCCD9210056C0B6 /* IterationBodyCellView.swift */,
+				EB47C5C52BD187E60056C0B6 /* SettingsCellView.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				C76E02402A19EA1D00E729D0 /* NoteDetailView.swift in Sources */,
 				C76E02012A15944A00E729D0 /* User.swift in Sources */,
 				C7B164B72A2B1CA3001E2DEE /* FileManager+DocumentsDirectory.swift in Sources */,
+				EB47C5C62BD187E60056C0B6 /* SettingsCellView.swift in Sources */,
 				C7F278852A2A9BA30070CFF6 /* Goal.swift in Sources */,
 				C7C04D932A31968600763870 /* Authentication.swift in Sources */,
 			);

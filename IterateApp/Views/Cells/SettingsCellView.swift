@@ -10,14 +10,14 @@ import SwiftUI
 struct SettingsCellView: View {
     
     let image: String
-    let color: Color
+    let foregroundColor: Color
+    let backgroundColor: Color
     let title: String
     let link: String?
     
     var body: some View {
         HStack(alignment: .center) {
-            Image(systemName: image)
-                .tint(color)
+            iconView
             if link != nil {
                 Link(title, destination: URL(string: link ?? "www.apple.com")!)
                     .foregroundStyle(.foreground)
@@ -28,7 +28,20 @@ struct SettingsCellView: View {
     }
 }
 
+extension SettingsCellView {
+    var iconView: some View {
+        ZStack {
+            Image(systemName: image)
+                .foregroundStyle(.white)
+        }
+        .frame(width: 30, height: 30, alignment: .center)
+        .background(backgroundColor)
+        .clipShape(RoundedRectangle(cornerRadius: 5))
+        .padding(.vertical, 5)
+    }
+}
+
 
 #Preview {
-    SettingsCellView(image: "heart.fill", color: .red, title: "test title", link: "www.apple.com")
+    SettingsCellView(image: "heart.fill", foregroundColor: .red, backgroundColor: .red, title: "test title", link: "www.apple.com")
 }

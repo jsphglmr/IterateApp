@@ -15,7 +15,7 @@ struct NoteDetailView: View {
     @State var goal: Goal
     @State private var newIterationBody: String = ""
     @State private var iconPickerPresented = false
-    
+    @State private var isSortedByNewest = false
     let textFieldLimit = 280
     
     var body: some View {
@@ -67,6 +67,7 @@ struct NoteDetailView: View {
             
             Section {
                 ForEach(goal.notes) { note in
+                    //MARK: - ‼️ To Do - Sort Notes by creation date (Newest -> Oldest)
                     IterationBodyCellView(note: note, color: goal.accentColor)
                 }
                 .onDelete { indexSet in
@@ -78,13 +79,21 @@ struct NoteDetailView: View {
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button {
-                    EditButton()
+                    if isSortedByNewest {
+                        //MARK: - ‼️ Toggle Sort
+                    } else {
+                        //
+                    }
+                    isSortedByNewest.toggle()
                 } label: {
-                    Label("Edit", systemImage: "ellipsis.circle.fill")
-                        .font(.title2)
-                        .foregroundColor(Color(colorName: goal.accentColor))
-                        .shadow(color: .white.opacity(1), radius: 20)
+                    if isSortedByNewest {
+                        Image(systemName: "arrow.up.arrow.down.circle")
+                    } else {
+                        Image(systemName: "arrow.up.arrow.down.circle.fill")
+                    }
                 }
+                .foregroundColor(Color(colorName: goal.accentColor))
+
             }
         }
         

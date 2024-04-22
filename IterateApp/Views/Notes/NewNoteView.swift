@@ -12,7 +12,7 @@ import SymbolPicker
 struct NewNoteView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) private var modelContext
-
+    
     @State private var noteTitle = ""
     @State private var noteInfo = ""
     @State private var noteTag = "Education"
@@ -25,7 +25,7 @@ struct NewNoteView: View {
     }
     
     let colors = ["red", "orange", "yellow", "green", "blue", "indigo", "purple"]
-            
+    
     var body: some View {
         
         NavigationView {
@@ -35,31 +35,41 @@ struct NewNoteView: View {
                 iconSelector
                 colorSelector
                 notePreview
-                
-                Button("Add") {
-
-                    modelContext.insert(
-                        Goal(
-                            title: noteTitle,
-                            description: noteInfo,
-                            symbol: symbol,
-                            accentColor: noteColor,
-                            notes: [],
-                            creationDate: Date.now
-                        )
-                    )
-                    dismiss()
-                }
-                .disabled(allFieldsComplete)
             }
+            
             .toolbar {
-                Button("Cancel") {
-                    dismiss()
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        modelContext.insert(
+                            Goal(
+                                title: noteTitle,
+                                description: noteInfo,
+                                symbol: symbol,
+                                accentColor: noteColor,
+                                notes: [],
+                                creationDate: Date.now
+                            )
+                        )
+                        dismiss()
+                    } label: {
+                        if allFieldsComplete {
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundStyle(.placeholder)
+                        } else {
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundStyle(Color(colorName: noteColor) ?? .red)
+                        }
+                    }
+                    .disabled(allFieldsComplete)
                 }
             }
         }
     }
-    
 }
 
 ///Title View
@@ -101,20 +111,11 @@ extension NewNoteView {
     }
 }
 
-///Note Preview
-extension NewNoteView {
-    var notePreview: some View {
-        Section("Preview") {
-            NoteCellView(goal: Goal(id: UUID(), title: noteTitle, description: noteInfo, symbol: symbol, accentColor: noteColor, notes: [], creationDate: Date.now))
-        }
-    }
-}
-
 ///Color Selector View
 extension NewNoteView {
     var colorSelector: some View {
         Section("Accent Color") {
-            ScrollView(.horizontal){
+            ScrollView(.horizontal) {
                 HStack(spacing: 20) {
                     ForEach(colors, id: \.self) { color in
                         Button {
@@ -138,5 +139,14 @@ struct NewNoteView_Previews: PreviewProvider {
     static var previews: some View {
         NewNoteView()
             .preferredColorScheme(.dark)
+    }
+}
+
+///Note Preview
+extension NewNoteView {
+    var notePreview: some View {
+        Section("Preview") {
+            NoteCellView(goal: Goal(id: UUID(), title: noteTitle, description: noteInfo, symbol: symbol, accentColor: noteColor, notes: [], creationDate: Date.now))
+        }
     }
 }

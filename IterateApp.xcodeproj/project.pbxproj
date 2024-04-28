@@ -27,6 +27,7 @@
 		EB47C5C42BD162C70056C0B6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47C5C32BD162C70056C0B6 /* SettingsView.swift */; };
 		EB47C5C62BD187E60056C0B6 /* SettingsCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47C5C52BD187E60056C0B6 /* SettingsCellView.swift */; };
 		EB47C5C82BD5D9640056C0B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB47C5C72BD5D9640056C0B6 /* Assets.xcassets */; };
+		EB47C5CA2BDE17310056C0B6 /* AboutMeCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47C5C92BDE17310056C0B6 /* AboutMeCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		EB47C5C32BD162C70056C0B6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		EB47C5C52BD187E60056C0B6 /* SettingsCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellView.swift; sourceTree = "<group>"; };
 		EB47C5C72BD5D9640056C0B6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EB47C5C92BDE17310056C0B6 /* AboutMeCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutMeCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				C7F278872A2A9C710070CFF6 /* NoteCellView.swift */,
 				EB47C5C02BCCD9210056C0B6 /* IterationBodyCellView.swift */,
 				EB47C5C52BD187E60056C0B6 /* SettingsCellView.swift */,
+				EB47C5C92BDE17310056C0B6 /* AboutMeCellView.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				C7B164B72A2B1CA3001E2DEE /* FileManager+DocumentsDirectory.swift in Sources */,
 				EB47C5C62BD187E60056C0B6 /* SettingsCellView.swift in Sources */,
 				C7F278852A2A9BA30070CFF6 /* Goal.swift in Sources */,
+				EB47C5CA2BDE17310056C0B6 /* AboutMeCellView.swift in Sources */,
 				C7C04D932A31968600763870 /* Authentication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

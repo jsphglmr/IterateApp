@@ -18,6 +18,14 @@ struct NoteDetailView: View {
     @State private var isSortedByNewest = false
     let textFieldLimit = 280
     
+    var notesSortedbyNewest: [Note] {
+        goal.notes.sorted { $0.creationDate > $1.creationDate }
+    }
+    
+    var notesSortedByOldest: [Note] {
+        goal.notes.sorted { $0.creationDate < $1.creationDate }
+    }
+    
     var body: some View {
         List {
             Section {
@@ -66,12 +74,20 @@ struct NoteDetailView: View {
             }
             
             Section {
-                ForEach(goal.notes) { note in
-                    //MARK: - ‼️ To Do - Sort Notes by creation date (Newest -> Oldest)
-                    IterationBodyCellView(note: note, color: goal.accentColor)
-                }
-                .onDelete { indexSet in
-                    deleteNoteIdea(at: indexSet)
+                if isSortedByNewest {
+                    ForEach(notesSortedbyNewest) { note in
+                        IterationBodyCellView(note: note, color: goal.accentColor)
+                    }
+                    //MARK: - Fix delete
+                    //deleting causes app to crash when view is reloaded
+                    .onDelete(perform: deleteNoteIdea)
+                } else {
+                    ForEach(notesSortedByOldest) { note in
+                        IterationBodyCellView(note: note, color: goal.accentColor)
+                    }
+                    //MARK: - Fix delete
+                    //deleting causes app to crash when view is reloaded
+                    .onDelete(perform: deleteNoteIdea)
                 }
             }
         }
@@ -79,11 +95,6 @@ struct NoteDetailView: View {
         .toolbar {
             ToolbarItem(placement: .automatic) {
                 Button {
-                    if isSortedByNewest {
-                        //MARK: - ‼️ Toggle Sort
-                    } else {
-                        //
-                    }
                     isSortedByNewest.toggle()
                 } label: {
                     if isSortedByNewest {
